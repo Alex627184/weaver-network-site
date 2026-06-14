@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Weaver Network: West Yorkshire's integrated public transport system. Plan journeys, track live buses, and explore our franchised network.">
+<title>Weaver Network | West Yorkshire's Integrated Transport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+--weaver-dark: #0D3B2E;
+--weaver-dark-lighter: #1B4332;
+--weaver-teal: #1A5F4A;
+--weaver-lime: #7CB518;
+--weaver-lime-light: #95D429;
+--weaver-lime-dark: #4A6B10;
+--clay-red: #B24c38;
+--cream: #F9F7F2;
+--white: #FFFFFF;
+--charcoal: #1A1A1A;
+--mid-gray: #4A4A4A;
+--light-gray: #8A8A8A;
+--border: #E5E2DB;
+--success: #059669;
+--warning: #D97706;
+--error: #DC2626;
+--font-heading: 'DM Sans', sans-serif;
+--font-body: 'Inter', sans-serif;
+--space-xs: 0.5rem;
+--space-sm: 1rem;
+--space-md: 1.5rem;
+--space-lg: 2rem;
+--space-xl: 3rem;
+--space-2xl: 5rem;
+--shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+--shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+--shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
+--radius-sm: 6px;
+--radius-md: 10px;
+--radius-lg: 16px;
+--transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: auto; }
+body { 
+  font-family: var(--font-body); 
+  background: var(--cream); 
+  color: var(--charcoal); 
+  line-height: 1.6; 
+  -webkit-font-smoothing: antialiased; 
+  overflow-x: hidden; 
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; color: var(--charcoal); }
+a { color: inherit; text-decoration: none; transition: var(--transition); }
+.skip-link { position: absolute; top: -40px; left: 0; background: var(--weaver-lime); color: var(--weaver-dark); padding: 8px; z-index: 10000; font-weight: 600; }
+.skip-link:focus { top: 0; }
+:focus-visible { outline: 3px solid var(--weaver-lime-dark); outline-offset: 3px; border-radius: 4px; }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes slideInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.05); } }
+.animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+.animate-fade-in-left { animation: fadeInLeft 0.8s ease-out forwards; }
+.animate-fade-in-right { animation: fadeInRight 0.8s ease-out forwards; }
+.animate-scale-in { animation: scaleIn 0.8s ease-out forwards; }
+.animate-slide-in-down { animation: slideInDown 0.8s ease-out forwards; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+.text-animate { opacity: 0; transform: translateY(30px); filter: blur(4px); transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out; }
+.text-animate.in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Staggered reveal for grid items */
+.glance-grid.reveal.active .glance-item,
+.districts-grid .district-card.reveal.active,
+.voices-grid .voice-card.reveal.active,
+.news-grid .news-card.reveal.active {
+  animation: fadeInUp 0.6s ease-out backwards;
+}
+.glance-grid .glance-item:nth-child(1), .districts-grid .district-card:nth-child(1), .voices-grid .voice-card:nth-child(1), .news-grid .news-card:nth-child(1) { animation-delay: 0s; }
+.glance-grid .glance-item:nth-child(2), .districts-grid .district-card:nth-child(2), .voices-grid .voice-card:nth-child(2), .news-grid .news-card:nth-child(2) { animation-delay: 0.1s; }
+.glance-grid .glance-item:nth-child(3), .districts-grid .district-card:nth-child(3), .voices-grid .voice-card:nth-child(3), .news-grid .news-card:nth-child(3) { animation-delay: 0.2s; }
+.glance-grid .glance-item:nth-child(4), .districts-grid .district-card:nth-child(4), .voices-grid .voice-card:nth-child(4) { animation-delay: 0.3s; }
+.districts-grid .district-card:nth-child(5) { animation-delay: 0.4s; }
+
+/* Hero parallax */
+.hero-bg { transition: transform 0.1s linear; }
+
+/* Back to top button */
+.back-to-top { position: fixed; bottom: 1.75rem; right: 1.75rem; width: 48px; height: 48px; border-radius: 50%; background: var(--weaver-lime); color: var(--weaver-dark); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow-lg); opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease; z-index: 999; }
+.back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-to-top:hover { background: var(--weaver-lime-dark); }
+
+/* Scroll progress bar */
+.scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--weaver-lime); z-index: 1002; width: 0%; transition: width 0.1s linear; }
+
+.service-status-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 1001; background: var(--weaver-dark); border-bottom: 1px solid rgba(124, 181, 24, 0.3); height: 36px; display: flex; align-items: center; overflow: hidden; }
+.status-ticker { display: flex; align-items: center; gap: var(--space-lg); animation: ticker 40s linear infinite; white-space: nowrap; padding-left: 100%; }
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+.status-item { display: flex; align-items: center; gap: var(--space-xs); font-size: 0.8rem; color: rgba(255,255,255,0.9); font-weight: 500; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.status-dot.good { background: var(--weaver-lime); }
+.status-dot.delayed { background: var(--warning); }
+.status-dot.disrupted { background: var(--error); }
+.status-route { font-weight: 700; color: var(--weaver-lime); font-family: var(--font-heading); }
+
+.site-header { position: fixed; top: 36px; left: 0; right: 0; z-index: 1000; background: var(--weaver-dark); border-bottom: 3px solid var(--weaver-lime); height: 80px; }
+.header-inner { display: flex; justify-content: space-between; align-items: center; height: 100%; padding: 0 var(--space-lg); max-width: 1400px; margin: 0 auto; }
+.brand-logo { display: flex; align-items: center; gap: var(--space-sm); font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; color: var(--weaver-lime); letter-spacing: -0.02em; cursor: pointer; }
+.brand-mark { height: 44px; display: flex; align-items: center; justify-content: center; }
+.brand-mark img { height: 100%; width: auto; object-fit: contain; display: block; }
+.desktop-nav { display: none; }
+.nav-list { display: flex; list-style: none; gap: var(--space-xl); align-items: center; }
+.nav-link { font-family: var(--font-heading); font-weight: 500; font-size: 0.95rem; color: rgba(255, 255, 255, 0.8); position: relative; padding: var(--space-xs) 0; cursor: pointer; }
+.nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--weaver-lime); transition: var(--transition); }
+.nav-link:hover, .nav-link.active { color: var(--weaver-lime); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+.nav-item { position: relative; }
+.nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -1rem;
+    background: var(--weaver-dark);
+    border: 1px solid rgba(124, 181, 24, 0.3);
+    border-top: 3px solid var(--weaver-lime);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    min-width: 240px;
+    padding: var(--space-sm) 0;
+    z-index: 1001;
+    box-shadow: var(--shadow-lg);
+    margin-top: 10px;
+}
+.nav-item:hover .nav-dropdown,
+.nav-item:focus-within .nav-dropdown {
+    display: block;
+}
+.nav-dropdown-link {
+    display: block;
+    padding: 0.75rem var(--space-md);
+    color: rgba(255,255,255,0.8);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    cursor: pointer;
+}
+.nav-dropdown-link:hover, .nav-dropdown-link:focus {
+    background: rgba(124, 181, 24, 0.1);
+    color: var(--weaver-lime);
+    outline: none;
+}
+
+.header-actions { display: flex; align-items: center; gap: var(--space-sm); }
+.search-toggle { background: none; border: 2px solid rgba(124, 181, 24, 0.3); color: var(--weaver-lime); width: 44px; height: 44px; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.search-toggle:hover { background: rgba(124, 181, 24, 0.1); border-color: var(--weaver-lime); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs); padding: 0.75rem 1.5rem; border-radius: var(--radius-md); font-family: var(--font-heading); font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: var(--transition); border: 2px solid transparent; }
+.btn-primary { background: var(--weaver-lime); color: var(--weaver-dark); }
+.btn-primary:hover { background: var(--weaver-lime-light); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn-secondary { background: transparent; color: var(--weaver-lime); border-color: var(--weaver-lime); }
+.btn-secondary:hover { background: rgba(124, 181, 24, 0.1); }
+.mobile-menu-btn { display: flex; background: none; border: none; cursor: pointer; padding: var(--space-xs); color: var(--weaver-lime); }
+.mobile-menu { position: fixed; top: 116px; left: 0; right: 0; bottom: 0; background: var(--weaver-dark); z-index: 999; padding: var(--space-lg); transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; }
+.mobile-menu.open { transform: translateX(0); }
+.mobile-nav-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-md); }
+.mobile-nav-link { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--weaver-lime); cursor: pointer; }
+
+.search-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(13, 59, 46, 0.97); z-index: 2000; display: none; align-items: flex-start; justify-content: center; padding-top: 120px; backdrop-filter: blur(8px); }
+.search-overlay.active { display: flex; }
+.search-container { width: 100%; max-width: 700px; padding: 0 var(--space-lg); }
+.search-input-wrapper { position: relative; margin-bottom: var(--space-md); }
+.search-overlay-input { width: 100%; padding: 1.25rem 1.25rem 1.25rem 3.5rem; border: 2px solid var(--weaver-lime); border-radius: var(--radius-md); background: rgba(255,255,255,0.05); color: white; font-family: var(--font-body); font-size: 1.25rem; transition: var(--transition); }
+.search-overlay-input:focus { outline: none; background: rgba(255,255,255,0.1); box-shadow: 0 0 0 4px rgba(124, 181, 24, 0.2); }
+.search-overlay-input::placeholder { color: rgba(255,255,255,0.5); }
+.search-overlay-icon { position: absolute; left: 1.25rem; top: 50%; transform: translateY(-50%); color: var(--weaver-lime); font-size: 1.5rem; display: flex; }
+.search-close { position: absolute; top: var(--space-lg); right: var(--space-lg); background: none; border: 2px solid rgba(124, 181, 24, 0.3); color: var(--weaver-lime); width: 48px; height: 48px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.search-close:hover { background: rgba(124, 181, 24, 0.1); border-color: var(--weaver-lime); }
+.search-suggestions { background: white; border-radius: var(--radius-md); overflow: hidden; max-height: 400px; overflow-y: auto; }
+.search-suggestion-item { padding: var(--space-md); border-bottom: 1px solid var(--border); cursor: pointer; transition: var(--transition); display: flex; justify-content: space-between; align-items: center; }
+.search-suggestion-item:hover { background: var(--cream); }
+.search-suggestion-item:last-child { border-bottom: none; }
+.search-suggestion-title { font-family: var(--font-heading); font-weight: 600; color: var(--weaver-dark); }
+.search-suggestion-type { font-size: 0.8rem; color: var(--light-gray); text-transform: uppercase; letter-spacing: 0.05em; }
+
+.page-view { display: none; padding-top: 116px; min-height: 100vh; animation: fadeIn 0.4s ease-out; }
+.page-view.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.hero { position: relative; min-height: calc(100vh - 116px); display: flex; align-items: center; background: var(--weaver-dark); color: white; padding: var(--space-2xl) 0; overflow: hidden; }
+.hero-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5f1P4oP9K_jQMDttU_Ajgu0hmDd9_7QGicA&s') center/cover no-repeat; opacity: 0.4; filter: blur(2px); }
+.hero-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(13, 59, 46, 0.95) 0%, rgba(13, 59, 46, 0.85) 50%, rgba(27, 67, 50, 0.75) 100%); }
+.hero-weave { position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; color: var(--weaver-lime); opacity: 0.08; pointer-events: none; }
+
+/* Thread divider */
+.thread-divider { display: block; width: 100%; height: 28px; color: var(--weaver-lime); }
+.thread-divider path { fill: none; stroke: currentColor; stroke-width: 2.5; opacity: 0.35; }
+.thread-divider path:nth-child(2) { opacity: 0.18; }
+.hero-content { max-width: 720px; position: relative; z-index: 1; }
+.hero-badge { display: inline-flex; align-items: center; gap: var(--space-xs); background: rgba(124, 181, 24, 0.2); backdrop-filter: blur(8px); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; color: var(--weaver-lime); margin-bottom: var(--space-md); border: 1px solid rgba(124, 181, 24, 0.3); }
+.hero-badge svg { flex-shrink: 0; }
+.contact-icon { width: 20px; height: 20px; vertical-align: -4px; color: var(--weaver-lime-dark); margin-right: 0.15em; }
+.hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); color: white; margin-bottom: var(--space-md); }
+.hero p { font-size: clamp(1.1rem, 2vw, 1.25rem); opacity: 0.9; margin-bottom: var(--space-xl); font-weight: 400; max-width: 600px; }
+.hero-actions { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
+.btn-hero-primary { background: var(--weaver-lime); color: var(--weaver-dark); padding: 1rem 2rem; font-size: 1.05rem; }
+.btn-hero-primary:hover { background: var(--weaver-lime-light); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(124, 181, 24, 0.3); }
+.btn-hero-secondary { background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(4px); padding: 1rem 2rem; font-size: 1.05rem; }
+.btn-hero-secondary:hover { background: rgba(255, 255, 255, 0.2); border-color: white; }
+.planner-widget { position: relative; margin-top: -4rem; z-index: 10; margin-bottom: var(--space-2xl); }
+.planner-card { background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-lg); display: grid; grid-template-columns: 1fr 1fr auto; gap: var(--space-md); align-items: end; border: 1px solid var(--border); }
+.input-group label { display: block; font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; color: var(--mid-gray); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-xs); }
+.input-group input { width: 100%; padding: 1rem; border: 2px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 1rem; transition: var(--transition); background: var(--cream); }
+.input-group input:focus { outline: none; border-color: var(--weaver-lime); background: white; box-shadow: 0 0 0 4px rgba(124, 181, 24, 0.15); }
+.planner-submit { height: 100%; padding: 1rem 1.75rem; white-space: nowrap; }
+.section { padding: var(--space-2xl) 0; }
+.container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--space-lg); }
+.section-header { text-align: center; max-width: 700px; margin: 0 auto var(--space-xl); }
+.section-header h2 { font-size: clamp(2rem, 4vw, 2.75rem); color: var(--weaver-dark); margin-bottom: var(--space-sm); }
+.section-header p { color: var(--mid-gray); font-size: 1.1rem; }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-lg); }
+.feature-card { background: white; border-radius: var(--radius-lg); padding: var(--space-xl); border: 1px solid var(--border); transition: var(--transition); position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; }
+.feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--weaver-lime); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+.feature-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+.feature-card:hover::before { transform: scaleX(1); }
+.feature-icon { width: 56px; height: 56px; background: rgba(124, 181, 24, 0.15); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-md); color: var(--weaver-lime-dark); }
+.feature-icon svg { width: 28px; height: 28px; }
+.feature-card h3 { font-size: 1.35rem; margin-bottom: var(--space-sm); color: var(--weaver-dark); }
+.feature-card p { color: var(--mid-gray); font-size: 0.95rem; line-height: 1.7; flex-grow: 1; }
+.feature-card .read-more { display: inline-flex; align-items: center; gap: var(--space-xs); margin-top: var(--space-md); color: var(--weaver-lime-dark); font-weight: 600; font-size: 0.9rem; }
+.feature-card .read-more:hover { gap: var(--space-sm); }
+
+/* Mayor's Promise Section */
+.mayor-section { background: var(--weaver-dark); color: white; padding: var(--space-2xl) 0; position: relative; overflow: hidden; }
+.mayor-section::before { content: ''; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: rgba(124, 181, 24, 0.1); border-radius: 50%; }
+.mayor-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); align-items: center; position: relative; z-index: 1; }
+.mayor-image { width: 100%; max-width: 300px; margin: 0 auto; border-radius: var(--radius-lg); overflow: hidden; border: 4px solid var(--weaver-lime); }
+.mayor-image img { width: 100%; height: auto; display: block; object-fit: cover; }
+.mayor-content blockquote { font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-family: var(--font-heading); font-weight: 500; line-height: 1.4; margin-bottom: var(--space-md); color: white; font-style: italic; }
+.mayor-content blockquote::before { content: '"'; font-size: 4rem; color: var(--weaver-lime); line-height: 0; vertical-align: -0.5em; margin-right: 0.1em; }
+.mayor-content blockquote::after { content: '"'; font-size: 4rem; color: var(--weaver-lime); line-height: 0; vertical-align: -0.5em; margin-left: 0.1em; }
+.mayor-content cite { display: block; font-style: normal; color: var(--weaver-lime); font-weight: 700; font-size: 1.1rem; margin-top: var(--space-md); }
+.mayor-content cite span { display: block; color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.95rem; margin-top: 0.25rem; }
+
+/* Benefits Section */
+.benefits-section { background: white; padding: var(--space-2xl) 0; }
+.benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg); }
+.benefit-card { text-align: center; padding: var(--space-lg); border-radius: var(--radius-lg); background: var(--cream); transition: var(--transition); }
+.benefit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.benefit-icon { margin-bottom: var(--space-sm); color: var(--weaver-lime-dark); display: flex; align-items: center; justify-content: center; }
+.benefit-icon svg { width: 44px; height: 44px; }
+.benefit-card h3 { font-size: 1.25rem; color: var(--weaver-dark); margin-bottom: var(--space-xs); }
+.benefit-card p { color: var(--mid-gray); font-size: 0.95rem; line-height: 1.6; }
+
+/* Weaver Network at a Glance */
+.glance-section { background: var(--weaver-dark); color: white; padding: var(--space-2xl) 0; position: relative; overflow: hidden; }
+.glance-section::before { content: ''; position: absolute; top: -120px; left: -120px; width: 400px; height: 400px; background: rgba(124, 181, 24, 0.08); border-radius: 50%; }
+.glance-section .section-header h2 { color: white; }
+.glance-section .section-header p { color: rgba(255,255,255,0.75); }
+.glance-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-xl); margin-top: var(--space-xl); position: relative; z-index: 1; text-align: center; }
+.glance-item h3 { font-size: clamp(2.25rem, 5vw, 3rem); color: var(--weaver-lime); }
+.glance-item p { margin-top: var(--space-xs); opacity: 0.85; font-size: 0.95rem; }
+@media (min-width: 768px) { .glance-grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* Timeline Section */
+.timeline-section { background: var(--cream); padding: var(--space-2xl) 0; }
+.timeline { position: relative; max-width: 900px; margin: 0 auto; padding: var(--space-xl) 0; }
+.timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: var(--weaver-lime); transform: translateX(-50%); }
+.timeline-item { position: relative; margin-bottom: var(--space-xl); display: flex; align-items: center; }
+.timeline-item:nth-child(odd) { flex-direction: row-reverse; }
+.timeline-content { width: 45%; padding: var(--space-lg); background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); border: 1px solid var(--border); }
+.timeline-year { font-size: 2rem; font-weight: 900; color: var(--weaver-lime); font-family: var(--font-heading); margin-bottom: var(--space-xs); }
+.timeline-content h3 { font-size: 1.25rem; color: var(--weaver-dark); margin-bottom: var(--space-xs); }
+.timeline-content p { color: var(--mid-gray); font-size: 0.95rem; line-height: 1.6; }
+.timeline-dot { position: absolute; left: 50%; transform: translateX(-50%); width: 24px; height: 24px; background: var(--weaver-lime); border: 4px solid white; border-radius: 50%; box-shadow: var(--shadow-md); z-index: 1; }
+
+/* Districts Section */
+.districts-section { background: var(--cream); padding: var(--space-2xl) 0; position: relative; overflow: hidden; }
+.weave-corner { position: absolute; top: 0; right: 0; width: 260px; height: 260px; color: var(--weaver-dark); opacity: 0.05; pointer-events: none; transform: translate(25%, -25%); }
+.districts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-lg); }
+.district-card { position: relative; border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; min-height: 220px; display: flex; flex-direction: column; justify-content: flex-end; transition: var(--transition); box-shadow: var(--shadow-sm); }
+.district-card:hover, .district-card:focus-visible { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.district-pattern { position: absolute; inset: 0; opacity: 0.92; transition: transform 0.6s ease; }
+.district-card:hover .district-pattern, .district-card:focus-visible .district-pattern { transform: scale(1.08) rotate(2deg); }
+.district-info { position: relative; z-index: 1; padding: var(--space-lg); background: linear-gradient(to top, rgba(13,59,46,0.95) 10%, rgba(13,59,46,0.15)); color: white; }
+.district-info h3 { color: white; margin-bottom: var(--space-xs); }
+.district-info p { font-size: 0.9rem; color: rgba(255,255,255,0.85); line-height: 1.5; margin: 0; }
+.pattern-leeds .district-pattern { background: repeating-linear-gradient(45deg, var(--weaver-lime) 0 14px, var(--weaver-dark) 14px 28px); }
+.pattern-bradford .district-pattern { background: repeating-linear-gradient(135deg, var(--weaver-teal) 0 16px, var(--weaver-lime-light) 16px 24px); }
+.pattern-wakefield .district-pattern { background: repeating-linear-gradient(90deg, var(--clay-red) 0 10px, var(--weaver-dark-lighter) 10px 26px); }
+.pattern-kirklees .district-pattern { background: repeating-linear-gradient(0deg, var(--weaver-lime-dark) 0 12px, var(--weaver-dark) 12px 24px); }
+.pattern-calderdale .district-pattern { background: repeating-linear-gradient(60deg, var(--weaver-dark-lighter) 0 14px, var(--clay-red) 14px 22px); }
+
+/* Where We Operate photo grid */
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); }
+.photo-item { position: relative; margin: 0; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 3; box-shadow: var(--shadow-sm); transition: var(--transition); }
+.photo-item:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+.photo-item:hover img { transform: scale(1.08); }
+.photo-item figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: var(--space-md); background: linear-gradient(to top, rgba(13,59,46,0.95) 15%, rgba(13,59,46,0)); color: white; }
+.photo-item figcaption h3 { color: white; margin-bottom: 0.2rem; font-size: 1.1rem; }
+.photo-item figcaption p { font-size: 0.85rem; color: rgba(255,255,255,0.85); line-height: 1.4; margin: 0; }
+
+/* Voices of West Yorkshire */
+.voices-section { background: var(--cream); padding: var(--space-2xl) 0; }
+.voices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
+.voice-card { background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: var(--space-md); margin: 0; transition: var(--transition); }
+.voice-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.voice-card blockquote { margin: 0; font-size: 0.98rem; line-height: 1.6; color: var(--weaver-dark); flex-grow: 1; }
+.voice-card blockquote::before { content: '\201C'; }
+.voice-card blockquote::after { content: '\201D'; }
+.voice-card figcaption { display: flex; align-items: center; gap: var(--space-sm); }
+.voice-avatar { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; background: var(--weaver-lime); color: var(--weaver-dark); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.95rem; }
+.voice-meta { display: flex; flex-direction: column; line-height: 1.3; }
+.voice-meta strong { color: var(--weaver-dark); font-size: 0.95rem; }
+.voice-meta span { font-size: 0.82rem; color: var(--mid-gray); }
+
+.news-section { background: white; padding: var(--space-2xl) 0; }
+.news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-lg); }
+.news-card { background: var(--cream); border-radius: var(--radius-lg); overflow: hidden; transition: var(--transition); cursor: pointer; border: 1px solid var(--border); padding: var(--space-lg); }
+.news-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.news-content { padding: var(--space-lg); }
+.news-date { font-size: 0.85rem; color: var(--light-gray); margin-bottom: var(--space-xs); }
+.news-title { font-size: 1.25rem; color: var(--weaver-dark); margin-bottom: var(--space-sm); line-height: 1.3; }
+.news-excerpt { font-size: 0.95rem; color: var(--mid-gray); line-height: 1.6; margin-bottom: var(--space-md); }
+.news-link { color: var(--weaver-lime-dark); font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: var(--space-xs); }
+.news-link:hover { gap: var(--space-sm); }
+
+.heritage-section { background: var(--weaver-dark); color: white; padding: var(--space-2xl) 0; position: relative; overflow: hidden; }
+.heritage-section::before { content: ''; position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: rgba(124, 181, 24, 0.05); border-radius: 50%; }
+.heritage-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); position: relative; z-index: 1; }
+.heritage-content h2 { color: var(--weaver-lime); font-size: clamp(2rem, 4vw, 2.75rem); margin-bottom: var(--space-md); }
+.heritage-content p { font-size: 1.1rem; line-height: 1.7; opacity: 0.9; margin-bottom: var(--space-md); }
+.heritage-quote { background: rgba(124, 181, 24, 0.1); border-left: 4px solid var(--weaver-lime); padding: var(--space-md); margin: var(--space-lg) 0; border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.heritage-quote blockquote { font-style: italic; font-size: 1.1rem; line-height: 1.6; color: white; margin-bottom: var(--space-xs); }
+.heritage-quote cite { color: var(--weaver-lime); font-weight: 600; font-style: normal; font-size: 0.95rem; }
+.heritage-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); margin-top: var(--space-xl); }
+.stat-item { text-align: center; }
+.stat-item h4 { font-size: 2.5rem; color: var(--weaver-lime); margin-bottom: var(--space-xs); font-variant-numeric: tabular-nums; }
+.stat-item p { font-size: 0.9rem; opacity: 0.8; margin: 0; }
+
+/* Odometer-style scrolling number counters */
+.counter { display: inline-flex; align-items: center; justify-content: center; }
+.odometer-static { line-height: 1; }
+.odometer-digit { position: relative; display: inline-block; height: 1em; width: 0.62em; overflow: hidden; vertical-align: bottom; }
+.odometer-strip { position: absolute; top: 0; left: 0; display: flex; flex-direction: column; transform: translateY(0); transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; }
+.odometer-strip span { display: block; height: 1em; line-height: 1; text-align: center; }
+.odometer-static { display: inline-block; }
+
+.faq-section { background: var(--cream); padding: var(--space-2xl) 0; }
+.faq-container { max-width: 800px; margin: 0 auto; }
+.faq-item { background: white; border-radius: var(--radius-md); margin-bottom: var(--space-md); border: 1px solid var(--border); overflow: hidden; transition: var(--transition); }
+.faq-item:hover { box-shadow: var(--shadow-md); }
+.faq-question { padding: var(--space-lg); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--space-md); background: white; transition: var(--transition); }
+.faq-question:hover { background: rgba(124, 181, 24, 0.05); }
+.faq-question h3 { font-size: 1.1rem; color: var(--weaver-dark); margin: 0; flex: 1; }
+.faq-icon { width: 24px; height: 24px; flex-shrink: 0; transition: transform 0.3s ease; color: var(--weaver-lime); }
+.faq-item.open .faq-icon { transform: rotate(180deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+.faq-item.open .faq-answer { max-height: 500px; padding: 0 var(--space-lg) var(--space-lg); }
+.faq-answer p { color: var(--mid-gray); line-height: 1.7; margin: 0; }
+.faq-answer a { color: var(--weaver-lime-dark); font-weight: 600; }
+.faq-answer a:hover { text-decoration: underline; }
+
+/* Breadcrumb */
+.breadcrumb { margin-bottom: var(--space-lg); }
+.breadcrumb ol { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-xs); align-items: center; font-size: 0.9rem; }
+.breadcrumb li { display: flex; align-items: center; gap: var(--space-xs); color: var(--mid-gray); }
+.breadcrumb li:not(:last-child)::after { content: '›'; color: var(--light-gray); margin-left: var(--space-xs); }
+.breadcrumb a { color: var(--weaver-lime-dark); font-weight: 500; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb li[aria-current="page"] { color: var(--charcoal); font-weight: 600; }
+
+.detail-hero { background: var(--weaver-dark); color: white; padding: var(--space-2xl) 0; text-align: center; }
+.detail-hero h1 { color: white; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: var(--space-sm); }
+.detail-hero p { max-width: 700px; margin: 0 auto; opacity: 0.9; font-size: 1.1rem; }
+.detail-content { padding: var(--space-2xl) 0; }
+.detail-section { margin-bottom: var(--space-xl); }
+.detail-section h2 { color: var(--weaver-dark); margin-bottom: var(--space-md); font-size: 1.75rem; }
+.detail-section p { color: var(--mid-gray); margin-bottom: var(--space-md); line-height: 1.7; }
+.detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); }
+.detail-item { background: white; padding: var(--space-lg); border-radius: var(--radius-md); border: 1px solid var(--border); }
+.detail-item h3 { color: var(--weaver-dark); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+.detail-item p { color: var(--mid-gray); margin-bottom: 0; font-size: 0.95rem; }
+.back-btn { display: inline-flex; align-items: center; gap: var(--space-xs); margin-bottom: var(--space-lg); color: var(--weaver-lime-dark); font-weight: 600; cursor: pointer; }
+.back-btn:hover { gap: var(--space-sm); }
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); }
+.contact-card { background: white; padding: var(--space-lg); border-radius: var(--radius-md); border: 1px solid var(--border); }
+.contact-card h3 { color: var(--weaver-dark); margin-bottom: var(--space-sm); font-size: 1.25rem; display: flex; align-items: center; gap: var(--space-sm); }
+.contact-card p, .contact-card a { color: var(--mid-gray); margin-bottom: var(--space-xs); font-size: 0.95rem; display: block; }
+.contact-card a:hover { color: var(--weaver-lime-dark); }
+.accessibility-content { max-width: 800px; margin: 0 auto; }
+.accessibility-content h2 { margin-top: var(--space-xl); margin-bottom: var(--space-md); }
+.accessibility-content h3 { margin-top: var(--space-md); margin-bottom: var(--space-sm); color: var(--weaver-dark); }
+.accessibility-content ul { margin-left: var(--space-lg); margin-bottom: var(--space-md); }
+.accessibility-content li { margin-bottom: var(--space-xs); color: var(--mid-gray); }
+.accessibility-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; }
+.accessibility-table th, .accessibility-table td { padding: var(--space-sm); border: 1px solid var(--border); text-align: left; }
+.accessibility-table th { background: var(--cream); font-family: var(--font-heading); }
+
+/* Consultation Banner */
+.consultation-banner { background: linear-gradient(135deg, var(--weaver-lime) 0%, var(--weaver-lime-dark) 100%); color: var(--weaver-dark); padding: var(--space-2xl) 0; text-align: center; }
+.consultation-banner h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin-bottom: var(--space-sm); color: var(--weaver-dark); }
+.consultation-banner p { font-size: 1.15rem; max-width: 700px; margin: 0 auto var(--space-lg); color: var(--weaver-dark); opacity: 0.9; }
+.btn-consultation { background: var(--weaver-dark); color: var(--weaver-lime); padding: 1rem 2rem; font-size: 1.05rem; border: 2px solid var(--weaver-dark); }
+.btn-consultation:hover { background: transparent; color: var(--weaver-dark); border-color: var(--weaver-dark); }
+
+.site-footer { background: var(--weaver-dark); color: white; padding: var(--space-2xl) 0 var(--space-lg); }
+.footer-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); margin-bottom: var(--space-xl); }
+.footer-brand p { color: rgba(255,255,255,0.6); margin-top: var(--space-sm); font-size: 0.9rem; max-width: 300px; line-height: 1.6; }
+.footer-col h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-md); color: rgba(255,255,255,0.5); }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: var(--space-xs); }
+.footer-col a { color: rgba(255,255,255,0.8); font-size: 0.95rem; }
+.footer-col a:hover { color: var(--weaver-lime); }
+.footer-bottom { padding-top: var(--space-lg); border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: var(--space-sm); text-align: center; font-size: 0.85rem; color: rgba(255,255,255,0.4); }
+
+.cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; background: var(--weaver-dark); color: white; padding: var(--space-lg); z-index: 3000; box-shadow: 0 -4px 20px rgba(0,0,0,0.2); display: none; border-top: 3px solid var(--weaver-lime); }
+.cookie-banner.active { display: block; }
+.cookie-content { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: var(--space-lg); align-items: center; }
+.cookie-text h3 { color: var(--weaver-lime); font-size: 1.1rem; margin-bottom: var(--space-xs); }
+.cookie-text p { font-size: 0.9rem; opacity: 0.9; line-height: 1.5; }
+.cookie-text a { color: var(--weaver-lime); text-decoration: underline; }
+.cookie-actions { display: flex; gap: var(--space-sm); flex-shrink: 0; }
+.cookie-btn { padding: 0.75rem 1.5rem; border-radius: var(--radius-md); font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: var(--transition); border: 2px solid transparent; }
+.cookie-accept { background: var(--weaver-lime); color: var(--weaver-dark); }
+.cookie-accept:hover { background: var(--weaver-lime-light); }
+.cookie-reject { background: transparent; color: white; border-color: rgba(255,255,255,0.3); }
+.cookie-reject:hover { border-color: white; }
+.cookie-settings { background: transparent; color: var(--weaver-lime); border-color: var(--weaver-lime); }
+.cookie-settings:hover { background: rgba(124, 181, 24, 0.1); }
+
+/* Print Styles */
+@media print {
+  .service-status-bar, .site-header, .search-overlay, .mobile-menu, .cookie-banner, .site-footer, .hero-actions, .planner-widget, .consultation-banner { display: none !important; }
+  body { background: white; color: black; font-size: 12pt; }
+  .page-view { padding-top: 0; display: block !important; }
+  .hero { min-height: auto; padding: 2rem 0; background: white; color: black; }
+  .hero-overlay, .hero-bg { display: none; }
+  .hero h1 { color: black; }
+  .hero p { color: black; opacity: 1; }
+  .section, .news-section, .heritage-section, .faq-section, .benefits-section, .timeline-section, .mayor-section { padding: 1.5rem 0; background: white; color: black; }
+  .heritage-section, .mayor-section { background: white; color: black; }
+  .heritage-content h2, .mayor-content blockquote { color: black; }
+  .feature-card, .news-card, .detail-item, .contact-card, .faq-item { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+  a { color: black; text-decoration: underline; }
+  a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; }
+  .breadcrumb a[href]::after { content: ""; }
+}
+
+@media (min-width: 768px) {
+.desktop-nav { display: block; }
+.mobile-menu-btn { display: none; }
+.planner-card { grid-template-columns: 1fr 1fr auto; }
+.heritage-grid { grid-template-columns: 1fr 1fr; align-items: center; }
+.mayor-grid { grid-template-columns: auto 1fr; gap: var(--space-2xl); }
+.footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+.footer-bottom { flex-direction: row; justify-content: space-between; text-align: left; }
+.cookie-content { grid-template-columns: 2fr 1fr; }
+.timeline-content { width: 45%; }
+}
+@media (min-width: 1024px) { .container { padding: 0 var(--space-xl); } }
+@media (max-width: 767px) {
+.hero-actions { flex-direction: column; width: 100%; }
+.btn { width: 100%; }
+.planner-card { grid-template-columns: 1fr; }
+.cookie-content { grid-template-columns: 1fr; }
+.cookie-actions { flex-wrap: wrap; }
+.service-status-bar { display: none; }
+.site-header { top: 0; }
+.page-view { padding-top: 80px; }
+.hero { min-height: calc(100vh - 80px); }
+.mobile-menu { top: 80px; }
+.timeline::before { left: 20px; }
+.timeline-item, .timeline-item:nth-child(odd) { flex-direction: row; padding-left: 50px; }
+.timeline-content { width: 100%; }
+.timeline-dot { left: 20px; }
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<div class="service-status-bar" role="marquee" aria-label="Service updates">
+<div class="status-ticker">
+<div class="status-item"><span class="status-dot good"></span> Your journeys. Our promise.</div>
+<div class="status-item"><span class="status-dot good"></span> We'll get you there.</div>
+<div class="status-item"><span class="status-dot good"></span> Ever Growing.</div>
+<div class="status-item"><span class="status-dot good"></span> Connecting West Yorkshire.</div>
+<div class="status-item"><span class="status-dot good"></span> Made to measure public transport.</div>
+<div class="status-item"><span class="status-dot good"></span> One network, every mode.</div>
+<div class="status-item"><span class="status-dot good"></span> Buses, trains, walking, wheeling, and cycling.</div>
+</div>
+</div>
+
+<header class="site-header">
+<div class="header-inner">
+<div class="brand-logo" onclick="navigateTo('home')" aria-label="Weaver Network Home">
+<div class="brand-mark" aria-hidden="true"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF8AAAA7CAYAAAAdKVa5AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAYkSURBVHhe7ZtZqFVVGMdVSjNssIFspCIajOghqpd6iGh8KBokiiYfyqBCigYwIamHwlRsErMsm6iUtKLsxQoztcEoEzRzKBpszuYZ6vfffPew77rrnvOtffY+D7L+8OOevdb3/b919j1n77XX3mdIVlZWVlZWVlZWVlZWVlZWVta2rckvjTkNJsHVcBGcDafDqXAmjIMr4WaYCnNhhm2PMptKIv9oOA9UezJMgzkwH5bAB/AN/DcI38K78BCcA3ubdZLIGwWqfyNcDGNhLxgJI2A/OBa0r84F7ZMLYQJcazbpIvkJiL0xD+PNJknkHQ+vlnzqQP+IcVYiSYGPh99BHwp9QCaaTbpIfgBiBTxMMJskkfd84FMXU62EW+TsE3ikMNdsqgmD2YFhCreYjVvk6Kv7T8mjTu6xMm6Rc1vg4UWf/EvNppow0DE2Zu5hutm4Rc79gUedVNn5bwYeXhaaRXVhopNVzNzDg2bjFjmvBB51MtPKuET8mCA/hdvNproweTgwTeFJs3GJ+MPhp1J+3UyzUi4Rr1lLzKcTq2CM2VQXJvNKpqnMNxuXiNdULuZTFzOslEvEPx3ke7nDLLoTRo8HxiksMBuXiL87yK8b9zGf2D3h51KuF+UcYjbdCSNd0MSKeHjWbDqK2GPgr1JuE8y2ch1F7AVBrpcpZtG9MHsuME9hkdl0FLG6io551Mk8K9dRig1yvZxgFt0Ls5cD8xReNJuOIva9ILcJnrJybUXcAfBlKc/LErOoRxi+FhRIwTUY4rQGEsuvG9c3kbjrgzwv55tFPcJwRVAghWVm01bEdXNoS2GxlRxUxAyH1aUcN2ZRnzDtZue/YzaDipirgpwm6fhNJOaMIMdLvZ96CdM3giIprDabQUXMx0FOkyy1slHRPxQeLcW7MYt6hfHSsFAC68wmKvp1PyCW1xTLrXRU9B8ZxHtZZRb1CmOtSccKethgNlHR/0wQ3zSddr5uCsXy2mLp9QvzxWGxBDaZzQDRp4uqWE6TDLrz6dsJKk13zaJ+Yb4oLJZAu53fyxNtHyus/ADRd1IQ6+Uas6hfmFddXBLtdv77QWwvWGnl+4l2nWgr3bcwi2ZEgW5WNTeaTT/RrpvNsfimecuG0E+0HxrEedlqFs2IArOCgimsNZt+on18ENcrtM4+1IbREm16OiIW34mRZtGMKHBXUDCFNWbTEm3D4KNSTC/Roa7fzmd7F/jQ+pMwi+ZEkSlh0QRiO183yGOxXn6JtHlZA+HOr3qiTb5FmiyKVF1kEuvNpiXaHgtiUlgA3dxmXAfDbCiF2L6z1O/G0psVhS4PCyew2WwKsa259L+l/iTMo5udvwlaO5/XWjr+zvqSMItmRSEtNFXdYZ+YTSG2rwj6kzCPbnb+p7BrMRjE67NKfSmcYhbNikJHQNXbe+En/4ugP4XiDfO33bOZnVD93cxnR5hp7Ukov2eioJ49jA6kA61jPq9vhT9KfUmYjXwqrToan0Hfzj8M1lp7CluKgfRKFPw1GICXty1fM4qvS+2pzCkGgnjdzRMO66E47PD3Mvjb2t0Ug+ilKFp1elc8KMrfZVDlMYw+RhQDQby+KehL4XXQvP5AqPRIjA2jd6Loj+EgHOgQM9nyNcX709pTuaEYhIltPa8fi/Ogdaqd4WRYbm0puB89qU0UrXKS0z9MP5LQs55VT7S/wb42jEJs69n9WKwHXa3vDpfAD9bmxobQW1F4czgQB1vgXngBPre2VK6zIbRE28FQaTkAtIazB0wstbmxIfRWFK6y87WOch/oFyZVTth6gmC0DaEl2nShttBiUjkR9DMe/WQn1t+OsTaE3orC+vrHBtQOrYbqKd9HSm1eVG+SlR8g+vSNiuV1QnP77SH5pr2V7r0oPh00TdP9XB3HdXdLM5iVsAE0jdRhRvPovje2neXqORitYoqNoOP/96ArVX0jdA2hk7P+9l1PaC4/YOm3T/RpxiMfLQ3IS+cX+WlGpZmZ/mp7KyjmK9ChTyd+XeUqR+9HY9L4Na4y6iszy0pvO+JN6fh7FOgkehzoalq/8htuIW6RMxq0VnMQ7A/y3sG6s7KysrKysrKysrKyGtaQIf8DOOuzv9+BsTUAAAAASUVORK5CYII=" alt=""></div>
+Weaver Network
+</div>
+
+<nav class="desktop-nav" aria-label="Main Navigation">
+<ul class="nav-list">
+<li><span class="nav-link active" onclick="navigateTo('home')">Home</span></li>
+<li class="nav-item">
+    <span class="nav-link" tabindex="0">Travel </span>
+    <div class="nav-dropdown">
+        <span class="nav-dropdown-link" onclick="navigateTo('detail-franchised-buses')">Buses</span>
+        <span class="nav-dropdown-link" onclick="navigateTo('detail-rail-integration')">Trains</span>
+        <span class="nav-dropdown-link" onclick="navigateTo('detail-mass-transit')">Mass Transit (Trams)</span>
+        <span class="nav-dropdown-link" onclick="navigateTo('detail-cycling')">Cycling</span>
+        <span class="nav-dropdown-link" onclick="navigateTo('detail-walking-wheeling')">Walking & Wheeling</span>
+        <span class="nav-dropdown-link" onclick="navigateTo('detail-ticketing')">Ticketing & Fares</span>
+        <span class="nav-dropdown-link" onclick="navigateTo('detail-accessibility')">Accessibility</span>
+    </div>
+</li>
+<li><span class="nav-link" onclick="window.open('https://bustimes.org/areas/107', '_blank')">Bus Tracking</span></li>
+<li><span class="nav-link" onclick="navigateTo('detail-news')">News</span></li>
+<li><span class="nav-link" onclick="navigateTo('detail-contact')">Contact</span></li>
+<li><span class="nav-link" onclick="navigateTo('detail-get-involved')">Get Involved</span></li>
+</ul>
+</nav>
+
+<div class="header-actions">
+<button class="search-toggle" onclick="openSearch()" aria-label="Open search">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+</button>
+<button class="btn btn-primary" onclick="window.open('https://bustimes.org/areas/107', '_blank')">Bus Tracking</button>
+<button class="mobile-menu-btn" aria-label="Toggle mobile menu" onclick="toggleMobileMenu()">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+</button>
+</div>
+</div>
+</header>
+
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Search Weaver Network">
+<button class="search-close" onclick="closeSearch()" aria-label="Close search">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+</button>
+<div class="search-container">
+<div class="search-input-wrapper">
+<span class="search-overlay-icon" aria-hidden="true">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+</span>
+<input type="text" class="search-overlay-input" id="globalSearch" placeholder="Search info, contact details and more..." aria-label="Search" autofocus>
+</div>
+<div class="search-suggestions" id="searchResults" style="display: none;"></div>
+</div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+<ul class="mobile-nav-list">
+    <li><span class="mobile-nav-link" onclick="navigateTo('home'); toggleMobileMenu()">Home</span></li>
+    
+    <li><span class="mobile-nav-link" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 1.5rem; display: block; text-transform: uppercase; letter-spacing: 0.05em; cursor: default; font-weight: 600;">Travel</span></li>
+    <li><span class="mobile-nav-link" onclick="navigateTo('detail-franchised-buses'); toggleMobileMenu()">Buses</span></li>
+    <li><span class="mobile-nav-link" onclick="navigateTo('detail-rail-integration'); toggleMobileMenu()">Trains</span></li>
+    <li><span class="mobile-nav-link" onclick="navigateTo('detail-mass-transit'); toggleMobileMenu()">Mass Transit (Trams)</span></li>
+    <li><span class="mobile-nav-link" onclick="navigateTo('detail-cycling'); toggleMobileMenu()">Cycling</span></li>
+    <li><span class="mobile-nav-link" onclick="navigateTo('detail-walking-wheeling'); toggleMobileMenu()">Walking & Wheeling</span></li>
+    <li><span class="mobile-nav-link" onclick="navigateTo('detail-ticketing'); toggleMobileMenu()">Ticketing & Fares</span></li>
+    <li><span class="mobile-nav-link" onclick="navigateTo('detail-accessibility'); toggleMobileMenu()">Accessibility</span></li>
+    
+    <li><span class="mobile-nav-link" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 1.5rem; display: block; text-transform: uppercase; letter-spacing: 0.05em; cursor: default; font-weight: 600;">Information</span></li>
+    <li><span class="mobile-nav-link" onclick="window.open('https://bustimes.org/areas/107', '_blank'); toggleMobileMenu()">Bus Tracking</span></li>
+    <li><span class="mobile-nav-link" onclick="navigateTo('detail-news'); toggleMobileMenu()">News</span></li>
+    <li><span class="mobile-nav-link" onclick="navigateTo('detail-contact'); toggleMobileMenu()">Contact Us</span></li>
+    <li><span class="mobile-nav-link" onclick="navigateTo('detail-get-involved'); toggleMobileMenu()">Get Involved</span></li>
+    <li><span class="mobile-nav-link" onclick="navigateTo('detail-accessibility-statement'); toggleMobileMenu()">Accessibility Statement</span></li>
+</ul>
+</div>
+
+<main id="main-content">
+<div id="view-home" class="page-view active">
+<section class="hero">
+<div class="hero-bg"></div>
+<div class="hero-overlay"></div>
+<svg class="hero-weave" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true">
+<defs>
+<pattern id="weavePattern" width="40" height="40" patternUnits="userSpaceOnUse">
+<path d="M0 10 H40 M0 30 H40" stroke="currentColor" stroke-width="2" fill="none"/>
+<path d="M10 0 V40 M30 0 V40" stroke="currentColor" stroke-width="2" fill="none" opacity="0.5"/>
+</pattern>
+</defs>
+<rect width="200" height="200" fill="url(#weavePattern)"/>
+</svg>
+<div class="container">
+<div class="hero-content">
+<div class="hero-badge animate-fade-in-up">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M3 11h18"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="16.5" cy="18.5" r="1.5"/><path d="M7 4v12M17 4v12"/></svg>
+Franchised services arriving Spring 2027
+</div>
+<h1 class="animate-fade-in-up delay-1">Your journeys.<br>Our promise.</h1>
+<p class="animate-fade-in-up delay-2">Welcome to the Weaver Network. We are stitching together buses, trains, trams, walking, wheeling, and cycling into one seamless, reliable transport system for West Yorkshire.</p>
+<div class="hero-actions animate-fade-in-up delay-3">
+<button class="btn btn-hero-primary" onclick="window.open('https://bustimes.org/areas/107', '_blank')">Plan a Journey</button>
+<button class="btn btn-hero-secondary" onclick="window.open('https://bustimes.org/map#5/54/-2.9', '_blank')">Explore Live Map</button>
+</div>
+</div>
+</div>
+</section>
+
+<div class="planner-widget">
+<div class="container">
+<form class="planner-card reveal" onsubmit="planJourney(event)">
+<div class="input-group">
+<label for="journeyFrom">From</label>
+<input type="text" id="journeyFrom" placeholder="e.g. Leeds Bus Station" autocomplete="off" required>
+</div>
+<div class="input-group">
+<label for="journeyTo">To</label>
+<input type="text" id="journeyTo" placeholder="e.g. Bradford Interchange" autocomplete="off" required>
+</div>
+<button type="submit" class="btn btn-primary planner-submit">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+Find Journeys
+</button>
+</form>
+</div>
+</div>
+
+<!-- Mayor's Promise Section -->
+<section class="mayor-section">
+<div class="container">
+<div class="mayor-grid">
+<div class="mayor-image reveal">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Official_portrait_of_Tracy_Brabin_MP_crop_2.jpg/500px-Official_portrait_of_Tracy_Brabin_MP_crop_2.jpg" alt="Mayor of West Yorkshire, Tracy Brabin">
+</div>
+<div class="mayor-content reveal">
+<h2 style="color: var(--weaver-lime); font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: var(--space-md);">The Mayor's Promise</h2>
+<blockquote>The Weaver Network is my promise to you to deliver a better-connected West Yorkshire. A region on the move. Transport that works for everyone, no matter where you live or how you travel.</blockquote>
+<cite>Tracy Brabin<span>Mayor of West Yorkshire</span></cite>
+</div>
+</div>
+</div>
+</section>
+
+<!-- How It Improves Your Journey -->
+<section class="benefits-section">
+<div class="container">
+<div class="section-header reveal">
+<h2>How It Will Improve Your Journey</h2>
+<p>From the moment you step out your door to the moment you arrive, the Weaver Network is designed around you.</p>
+</div>
+<div class="benefits-grid">
+<div class="benefit-card reveal">
+<div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l1.93-1.93a5 5 0 0 0-7.07-7.07L10.5 5.5"/><path d="M14 11a5 5 0 0 0-7.07 0L5 12.93a5 5 0 0 0 7.07 7.07L13.5 18.5"/></svg></div>
+<h3>Joined-up Journeys</h3>
+<p>Seamlessly switch between buses, trains, trams, and active travel with coordinated timetables and integrated ticketing.</p>
+</div>
+<div class="benefit-card reveal">
+<div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+<h3>Reliable Services</h3>
+<p>Consistent timetables designed around what communities actually need, not just what's profitable for operators.</p>
+</div>
+<div class="benefit-card reveal">
+<div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4Z"/><path d="M13 6v12" stroke-dasharray="2 2"/></svg></div>
+<h3>One Ticket, Every Mode</h3>
+<p>Tap in with contactless, smartcard, or app. Daily and weekly capping ensures you always pay the best fare across all transport.</p>
+</div>
+<div class="benefit-card reveal">
+<div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-7"/><path d="M8.5 16.5a5 5 0 0 1 0-7"/><path d="M15.5 9.5a5 5 0 0 1 0 7"/><path d="M5.5 19.5a9 9 0 0 1 0-13"/><path d="M18.5 6.5a9 9 0 0 1 0 13"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg></div>
+<h3>Real-Time Updates</h3>
+<p>Live tracking, service alerts, and journey planning all in one place. Know exactly when your bus, tram, or train is arriving.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+<div class="section-header reveal">
+<h2>One Network, Every Mode</h2>
+<p>The Weaver Network isn't just a new name for buses. It is a unified identity that connects every way you move across West Yorkshire.</p>
+</div>
+<div class="feature-grid">
+<article class="feature-card reveal" onclick="navigateTo('detail-franchised-buses')">
+<div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M3 11h18"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="16.5" cy="18.5" r="1.5"/><path d="M7 4v12M17 4v12"/></svg></div>
+<h3>Franchised Buses</h3>
+<p>From Spring 2027, buses across West Yorkshire will operate under public control through the Weaver Network brand. Expect reliable timetables, integrated ticketing, modern electric vehicles with free WiFi and USB charging, and consistent standards across all services.</p>
+<span class="read-more">Learn more →</span>
+</article>
+<article class="feature-card reveal" onclick="navigateTo('detail-rail-integration')">
+<div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 11h14"/><circle cx="8.5" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="9" r="1" fill="currentColor" stroke="none"/><path d="M9 16l-2 4M15 16l2 4"/></svg></div>
+<h3>Rail Integration</h3>
+<p>We're working closely with Northern, TransPennine Express, and other rail operators to create seamless connections between buses and trains. Coordinated timetables so you never miss a connection, unified branding at key interchange stations.</p>
+<span class="read-more">Learn more →</span>
+</article>
+<article class="feature-card reveal" onclick="navigateTo('detail-mass-transit')">
+<div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v3"/><rect x="4" y="5" width="16" height="12" rx="2"/><path d="M4 11h16"/><path d="M8 17v1.5M16 17v1.5"/><circle cx="8" cy="20.5" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="20.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+<h3>Mass Transit (Trams)</h3>
+<p>Plans are underway for a new tram and mass transit system for West Yorkshire, with services potentially running by the late 2030s. Backed by over £200 million in investment and support from communities across the region.</p>
+<span class="read-more">Learn more →</span>
+</article>
+<article class="feature-card reveal" onclick="navigateTo('detail-walking-wheeling')">
+<div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="3" r="1.6" fill="currentColor" stroke="none"/><path d="M12 5v8"/><path d="M12 7l-4 4"/><path d="M12 7l4 3"/><path d="M12 13l-3 7"/><path d="M12 13l3 7"/></svg></div>
+<h3>Walking & Wheeling</h3>
+<p>We're investing in safer, wider pavements and fully accessible routes. More pedestrian crossings with longer crossing times, better street lighting, dropped kerbs and step-free access at all key locations.</p>
+<span class="read-more">Learn more →</span>
+</article>
+<article class="feature-card reveal" onclick="navigateTo('detail-cycling')">
+<div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M5.5 17.5 9 10h4l3 7.5"/><path d="M9 10l2-3h3"/></svg></div>
+<h3>Cycling Infrastructure</h3>
+<p>A comprehensive cycle network with physically protected lanes, secure covered parking at stations, more buses and trains with capacity for bicycles, and major cycle hubs with repair facilities and bike hire.</p>
+<span class="read-more">Learn more →</span>
+</article>
+<article class="feature-card reveal" onclick="navigateTo('detail-ticketing')">
+<div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4Z"/><path d="M13 6v12" stroke-dasharray="2 2"/></svg></div>
+<h3>Ticketing & Fares</h3>
+<p>Simple, integrated ticketing across all modes. Use contactless, the MCard app, or reloadable smartcards. Daily and weekly capping ensures you always get the best fare. The MCard has already smashed 10 million app ticket sales.</p>
+<span class="read-more">Learn more →</span>
+</article>
+<article class="feature-card reveal" onclick="navigateTo('detail-accessibility')">
+<div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="1.5" fill="currentColor" stroke="none"/><path d="M11 6.5v4h5l3 5"/><path d="M11 10.5l-3 4"/><circle cx="11" cy="16" r="4"/></svg></div>
+<h3>Accessibility</h3>
+<p>100% low-floor accessible buses with ramps and priority seating, step-free access with lifts and ramps at all major stations, clear audio-visual announcements on all vehicles and at stops.</p>
+<span class="read-more">Learn more →</span>
+</article>
+<article class="feature-card reveal" onclick="navigateTo('detail-ev-charging')">
+<div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7V3M15 7V3"/><path d="M7 7h10v5a5 5 0 0 1-10 0Z"/><path d="M12 16v3"/><path d="M9 21h6"/></svg></div>
+<h3>EV Charging & Cleaner Air</h3>
+<p>A strong Electric Vehicle charging network across the region. While we champion public and active transport, we recognise some will still need to drive—we're supporting the transition to electric and shared car use.</p>
+<span class="read-more">Learn more →</span>
+</article>
+</div>
+</div>
+</section>
+
+<!-- Weaver Network at a Glance -->
+<section class="glance-section">
+<div class="container">
+<div class="section-header reveal">
+<h2>The Weaver Network at a Glance</h2>
+<p>A single network designed around the whole of West Yorkshire.</p>
+</div>
+<div class="glance-grid reveal">
+<div class="glance-item">
+<h3 class="counter" data-target="5" data-prefix="" data-suffix="">0</h3>
+<p>Districts United Under One Network</p>
+</div>
+<div class="glance-item">
+<h3 class="counter" data-target="490" data-prefix="" data-suffix="+">0</h3>
+<p>Bus Routes Across the Region</p>
+</div>
+<div class="glance-item">
+<h3 class="counter" data-target="100" data-prefix="" data-suffix="%">0</h3>
+<p>Low-Floor Accessible Fleet</p>
+</div>
+<div class="glance-item">
+<h3 class="counter" data-target="7" data-prefix="" data-suffix="">0</h3>
+<p>Days a Week Real-Time Information</p>
+</div>
+</div>
+</div>
+<svg class="thread-divider" viewBox="0 0 1200 28" preserveAspectRatio="none" aria-hidden="true">
+<path d="M0 14 Q 150 0, 300 14 T 600 14 T 900 14 T 1200 14"/>
+<path d="M0 14 Q 150 28, 300 14 T 600 14 T 900 14 T 1200 14"/>
+</svg>
+</section>
+
+<!-- Timeline Section -->
+<section class="timeline-section">
+<div class="container">
+<div class="section-header reveal">
+<h2>How the Weaver Network is Rolling Out</h2>
+<p>A clear timeline for transforming transport across West Yorkshire.</p>
+</div>
+<div class="timeline">
+<div class="timeline-item reveal">
+<div class="timeline-content">
+<div class="timeline-year">2026</div>
+<h3>Branding Begins</h3>
+<p>The Weaver Network branding starts appearing at bus stops and stations on a cost-effective repair and replace basis. Heckmondwike Bus Station is the first to open with the new branding. The WYMetro brand begins its phased retirement.</p>
+</div>
+<div class="timeline-dot"></div>
+</div>
+<div class="timeline-item reveal">
+<div class="timeline-content">
+<div class="timeline-year">2027</div>
+<h3>Buses Launch Under Public Control</h3>
+<p>The first franchised Weaver Network buses begin operation in Spring 2027. A new website and app launch. Hundreds of new electric buses join the fleet. The WYMetro brand is fully retired.</p>
+</div>
+<div class="timeline-dot"></div>
+</div>
+<div class="timeline-item reveal">
+<div class="timeline-content">
+<div class="timeline-year">2028</div>
+<h3>Full Network Takes Shape</h3>
+<p>All buses across West Yorkshire will be under public control by the end of 2028. Integrated ticketing is fully operational across all modes. Major interchange stations receive unified Weaver Network branding.</p>
+</div>
+<div class="timeline-dot"></div>
+</div>
+<div class="timeline-item reveal">
+<div class="timeline-content">
+<div class="timeline-year">Late 2030s</div>
+<h3>Trams & Mass Transit</h3>
+<p>A new tram and mass transit system is planned to begin services, connecting major towns and cities across West Yorkshire. Backed by over £200 million in transformative investment.</p>
+</div>
+<div class="timeline-dot"></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Districts Section -->
+<section class="districts-section">
+<svg class="weave-corner" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true">
+<defs>
+<pattern id="weavePatternLight" width="40" height="40" patternUnits="userSpaceOnUse">
+<path d="M0 10 H40 M0 30 H40" stroke="currentColor" stroke-width="2" fill="none"/>
+<path d="M10 0 V40 M30 0 V40" stroke="currentColor" stroke-width="2" fill="none" opacity="0.5"/>
+</pattern>
+</defs>
+<rect width="200" height="200" fill="url(#weavePatternLight)"/>
+</svg>
+<div class="container">
+<div class="section-header reveal">
+<h2>Woven Across West Yorkshire</h2>
+<p>Five districts, one network. Every thread of the Weaver Network is shaped by the communities it serves.</p>
+</div>
+<div class="districts-grid">
+<article class="district-card reveal pattern-leeds" onclick="navigateTo('detail-heritage')" tabindex="0" role="button" aria-label="Explore Leeds in the Weaver Network" onkeydown="if(event.key==='Enter')navigateTo('detail-heritage')">
+<div class="district-pattern" aria-hidden="true"></div>
+<div class="district-info">
+<h3>Leeds</h3>
+<p>The region's largest city and economic hub, home to Leeds Station and the first wave of franchised bus routes.</p>
+</div>
+</article>
+<article class="district-card reveal pattern-bradford" onclick="navigateTo('detail-heritage')" tabindex="0" role="button" aria-label="Explore Bradford in the Weaver Network" onkeydown="if(event.key==='Enter')navigateTo('detail-heritage')">
+<div class="district-pattern" aria-hidden="true"></div>
+<div class="district-info">
+<h3>Bradford</h3>
+<p>A diverse city with a rich cultural heritage, served by Bradford Interchange and new Weaver Network branding.</p>
+</div>
+</article>
+<article class="district-card reveal pattern-wakefield" onclick="navigateTo('detail-heritage')" tabindex="0" role="button" aria-label="Explore Wakefield in the Weaver Network" onkeydown="if(event.key==='Enter')navigateTo('detail-heritage')">
+<div class="district-pattern" aria-hidden="true"></div>
+<div class="district-info">
+<h3>Wakefield</h3>
+<p>The cathedral city, with strong rail connections to Leeds via the modern Wakefield Westgate interchange.</p>
+</div>
+</article>
+<article class="district-card reveal pattern-kirklees" onclick="navigateTo('detail-heritage')" tabindex="0" role="button" aria-label="Explore Kirklees in the Weaver Network" onkeydown="if(event.key==='Enter')navigateTo('detail-heritage')">
+<div class="district-pattern" aria-hidden="true"></div>
+<div class="district-info">
+<h3>Kirklees</h3>
+<p>Encompassing Huddersfield and Dewsbury, and home to Heckmondwike Bus Station—the first to open with Weaver Network branding.</p>
+</div>
+</article>
+<article class="district-card reveal pattern-calderdale" onclick="navigateTo('detail-heritage')" tabindex="0" role="button" aria-label="Explore Calderdale in the Weaver Network" onkeydown="if(event.key==='Enter')navigateTo('detail-heritage')">
+<div class="district-pattern" aria-hidden="true"></div>
+<div class="district-info">
+<h3>Calderdale</h3>
+<p>From Halifax to Hebden Bridge, connecting urban centres and rural communities across the Pennine valleys.</p>
+</div>
+</article>
+</div>
+</div>
+</section>
+
+<section class="news-section">
+<div class="container">
+<div class="section-header reveal">
+<h2>News & Updates</h2>
+<p>Stay informed with the latest from the Weaver Network.</p>
+</div>
+<div class="news-grid">
+<article class="news-card reveal" onclick="window.open('https://www.passengertransport.co.uk/2025/10/likely-bidders-revealed-for-weaver-network/', '_blank')">
+<div class="news-content">
+<div class="news-date">31 October 2025</div>
+<h3 class="news-title">Likely bidders revealed for Weaver Network</h3>
+<p class="news-excerpt">35 operators have registered to compete for contracts under the Weaver Network bus franchising model, joining the Combined Authority's 'Dynamic Market' procurement system ahead of the first contracts being awarded in 2026.</p>
+<span class="news-link">Read full story →</span>
+</div>
+</article>
+<article class="news-card reveal" onclick="window.open('https://www.yorkshirepost.co.uk/news/transport/new-images-of-west-yorkshires-first-weaver-network-branded-bus-station-revealed-5337202', '_blank')">
+<div class="news-content">
+<div class="news-date">29 September 2025</div>
+<h3 class="news-title">New images of West Yorkshire's first Weaver Network branded bus station revealed</h3>
+<p class="news-excerpt">The £10.5m Heckmondwike bus station, delivered by Kirklees Council with the Combined Authority, will be the first to carry the new Weaver Network branding, featuring extra seating, cycle parking, solar panels and a green roof.</p>
+<span class="news-link">Read more →</span>
+</div>
+</article>
+<article class="news-card reveal" onclick="window.open('https://www.westyorks-ca.gov.uk/news/weaver-network-will-offer-made-to-measure-public-transport-for-west-yorkshire', '_blank')">
+<div class="news-content">
+<div class="news-date">12 May 2025</div>
+<h3 class="news-title">Weaver Network will offer made to measure public transport for West Yorkshire</h3>
+<p class="news-excerpt">Mayor Tracy Brabin and West Yorkshire's five council leaders officially unveiled the Weaver Network brand at Millennium Square, Leeds, marking a bold new era for public transport inspired by the region's industrial and textile heritage.</p>
+<span class="news-link">Read more →</span>
+</div>
+</article>
+</div>
+</div>
+</section>
+
+<!-- Voices of West Yorkshire -->
+<section class="voices-section">
+<div class="container">
+<div class="section-header reveal">
+<h2>Voices of West Yorkshire</h2>
+<p>Real words from the people building and shaping the Weaver Network.</p>
+</div>
+<div class="voices-grid">
+<figure class="voice-card reveal">
+<blockquote>"For too long, our region has suffered from a disjointed, confusing, and increasingly hard to navigate public transport system. Our vision for an integrated Weaver Network, offering reliable and seamless travel whether people are travelling by bus, tram or train, includes facilities that are welcoming and accessible for all."</blockquote>
+<figcaption>
+<div class="voice-avatar" aria-hidden="true">TB</div>
+<div class="voice-meta"><strong>Tracy Brabin</strong><span>Mayor of West Yorkshire</span></div>
+</figcaption>
+</figure>
+<figure class="voice-card reveal">
+<blockquote>"With the Mayor's decision to take back control of the bus network, we are now moving towards a fully integrated transport network under one brand."</blockquote>
+<figcaption>
+<div class="voice-avatar" aria-hidden="true">SH</div>
+<div class="voice-meta"><strong>Cllr Susan Hinchcliffe</strong><span>Chair, WYCA Transport Committee</span></div>
+</figcaption>
+</figure>
+<figure class="voice-card reveal">
+<blockquote>"This first new Weaver Network branded bus station gives confidence that bus franchising will soon make travelling from A to B by public transport a much more attractive, reliable and accessible option."</blockquote>
+<figcaption>
+<div class="voice-avatar" aria-hidden="true">MC</div>
+<div class="voice-meta"><strong>Cllr Moses Crook</strong><span>Deputy Leader, Kirklees Council</span></div>
+</figcaption>
+</figure>
+<figure class="voice-card reveal">
+<blockquote>"The children had a wonderful time on their recent visit to the Heckmondwike bus station, and it was a great opportunity to see the project first hand."</blockquote>
+<figcaption>
+<div class="voice-avatar" aria-hidden="true">CB</div>
+<div class="voice-meta"><strong>Claire Bass</strong><span>Headteacher, Holy Spirit Catholic Primary Academy</span></div>
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<section class="heritage-section" id="heritage">
+<svg class="thread-divider" viewBox="0 0 1200 28" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; top: 0; left: 0;">
+<path d="M0 14 Q 150 0, 300 14 T 600 14 T 900 14 T 1200 14"/>
+<path d="M0 14 Q 150 28, 300 14 T 600 14 T 900 14 T 1200 14"/>
+</svg>
+<div class="container">
+<div class="heritage-grid">
+<div class="heritage-content reveal">
+<h2>Woven into West Yorkshire</h2>
+<p>The name "Weaver Network" pays direct homage to our region's world-renowned textile heritage. Just as our ancestors wove the fabric of the industrial revolution, we are weaving together a modern, sustainable transport network.</p>
+<p>Our visual identity draws inspiration from the diverse cultural fabric of West Yorkshire today. The geometric patterns on our buses echo the work of iconic Yorkshire artists like David Hockney, Barbara Hepworth, and Henry Moore, while celebrating everything from traditional Yorkshire tweeds to vibrant sari prints and African wax prints that reflect our communities today.</p>
+
+<div class="heritage-quote">
+<blockquote>To me, the Weaver Network name symbolises the threads connecting people with places, shuttling to and from, built on heritage and creating new ties and links.</blockquote>
+<cite>— Simon Armitage, Poet Laureate and West Yorkshire resident</cite>
+</div>
+
+<button class="btn btn-secondary" style="border-color: rgba(124, 181, 24, 0.4); color: var(--weaver-lime); margin-top: 1rem;" onclick="navigateTo('detail-heritage')">Read the Full Design Story</button>
+</div>
+<div class="heritage-stats reveal">
+<div class="stat-item">
+<h4 class="counter" data-target="2027" data-prefix="" data-suffix="">0</h4>
+<p>Full Franchise Rollout</p>
+</div>
+<div class="stat-item">
+<h4 class="counter" data-target="2038" data-prefix="" data-suffix="">0</h4>
+<p>Net Zero Target</p>
+</div>
+<div class="stat-item">
+<h4 class="counter" data-target="200" data-prefix="£" data-suffix="m+">0</h4>
+<p>Transformative Investment</p>
+</div>
+<div class="stat-item">
+<h4 class="counter" data-target="10" data-prefix="" data-suffix="m+">0</h4>
+<p>MCard App Ticket Sales</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="faq-section">
+<div class="container">
+<div class="section-header reveal">
+<h2>Frequently Asked Questions</h2>
+<p>Find answers to common questions about the Weaver Network.</p>
+</div>
+<div class="faq-container">
+<div class="faq-item reveal">
+<div class="faq-question" onclick="toggleFaq(this)">
+<h3>What is the Weaver Network?</h3>
+<svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</div>
+<div class="faq-answer">
+<p>The Weaver Network is West Yorkshire's new integrated public transport system, replacing the old Metro brand. From Spring 2027, we'll be bringing bus services under public control, with better routes, integrated ticketing, and modern electric vehicles. We're also working to seamlessly connect buses, trains, trams, cycling, and walking into one unified network.</p>
+</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-question" onclick="toggleFaq(this)">
+<h3>When will the new buses start running?</h3>
+<svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</div>
+<div class="faq-answer">
+<p>The first franchised Weaver Network buses are scheduled to begin operation in Spring 2027. We'll be rolling out services across West Yorkshire throughout 2027 and 2028, starting with major corridors in Leeds, Bradford, Huddersfield, and Wakefield. All buses will be under public control by the end of 2028.</p>
+</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-question" onclick="toggleFaq(this)">
+<h3>What happens to WYMetro?</h3>
+<svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</div>
+<div class="faq-answer">
+<p>The WYMetro brand will be fully retired when the Weaver Network launches in 2027. Branding changes are already happening on a cost-effective repair and replace basis—Heckmondwike Bus Station was the first to open with the new Weaver Network branding in 2026. Your existing Metro smartcards and passes will continue to work and will transition seamlessly to the new system.</p>
+</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-question" onclick="toggleFaq(this)">
+<h3>Will there be trams in West Yorkshire?</h3>
+<svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</div>
+<div class="faq-answer">
+<p>Yes! Plans are underway for a new tram and mass transit system for West Yorkshire, with services potentially running by the late 2030s. This is backed by over £200 million in transformative investment and has strong support from communities across the region, including Leeds United FC. Visit our <a href="#" onclick="navigateTo('detail-mass-transit'); return false;">Mass Transit page</a> for more information.</p>
+</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-question" onclick="toggleFaq(this)">
+<h3>Will ticket prices change?</h3>
+<svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</div>
+<div class="faq-answer">
+<p>We're committed to fair and affordable fares. With integrated ticketing, you'll be able to use one ticket across buses, trains, and other modes of transport. Daily and weekly capping will ensure you always get the best fare. The MCard app has already smashed 10 million ticket sales, and we're building on this success. We also offer concessions for young people, seniors, and those on lower incomes.</p>
+</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-question" onclick="toggleFaq(this)">
+<h3>How do I report a problem or give feedback?</h3>
+<svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</div>
+<div class="faq-answer">
+<p>You can contact our customer services team by phone at <a href="tel:01132457676">0113 245 7676</a> or email <a href="mailto:customer.services@westyorks-ca.gov.uk">customer.services@westyorks-ca.gov.uk</a>. We aim to respond to all complaints within 10 working days. You can also use the live chat feature on our website during opening hours.</p>
+</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-question" onclick="toggleFaq(this)">
+<h3>Is the network accessible for wheelchair users?</h3>
+<svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</div>
+<div class="faq-answer">
+<p>Yes! We're committed to making transport accessible for everyone. All our buses will be 100% low-floor accessible with ramps and priority seating. Major stations will have step-free access with lifts and ramps. We also provide audio-visual announcements on all vehicles and at stops, and offer turn-up-and-go assistance at stations. For more information, visit our <a href="#" onclick="navigateTo('detail-accessibility'); return false;">Accessibility page</a>.</p>
+</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-question" onclick="toggleFaq(this)">
+<h3>Can I bring my bicycle on buses and trains?</h3>
+<svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</div>
+<div class="faq-answer">
+<p>Yes, we're increasing capacity for bicycles on both buses and trains. Many of our new buses will have bike racks, and we're working with rail operators to ensure more trains have space for bicycles. We're also building secure cycle parking at stations and major interchanges. Check individual route information for specific bike capacity.</p>
+</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-question" onclick="toggleFaq(this)">
+<h3>How do I track buses in real-time?</h3>
+<svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</div>
+<div class="faq-answer">
+<p>You can track buses in real-time using our Bus Tracking page. Just click on "Bus Tracking" in the navigation menu or use our mobile app. You'll be able to see where buses are, when they're due to arrive, and get service alerts. You can also sign up for text or email alerts for your regular routes.</p>
+</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-question" onclick="toggleFaq(this)">
+<h3>What areas does the Weaver Network cover?</h3>
+<svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</div>
+<div class="faq-answer">
+<p>The Weaver Network covers all five metropolitan districts of West Yorkshire: Leeds, Bradford, Huddersfield (Kirklees), Wakefield, and Halifax (Calderdale). We're working to provide comprehensive coverage across urban and rural areas, with integrated connections to surrounding regions.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- VIEW: Franchised Buses -->
+<div id="view-detail-franchised-buses" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Franchised Buses</h1><p>A new era of public bus services under public control, delivering better routes, reliable services, and integrated ticketing across West Yorkshire.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li><a href="#" onclick="navigateTo('home'); return false;">Travel</a></li>
+<li aria-current="page">Franchised Buses</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>What is Bus Franchising?</h2><p>Bus franchising means that the Weaver Network, through the West Yorkshire Combined Authority, will take control of planning bus routes, setting timetables, and determining fares. This gives local people a real say in how their bus services are run, rather than leaving decisions to commercial operators focused solely on profit.</p><p>From Spring 2027, buses across West Yorkshire will operate under the Weaver Network brand, featuring our distinctive lime green and forest green livery with geometric patterns inspired by our textile heritage. All buses will be under public control by the end of 2028.</p></div>
+<div class="detail-section"><h2>Key Benefits</h2><div class="detail-grid">
+<div class="detail-item"><h3>Better Routes</h3><p>Services designed around what people actually need, not just what's profitable for operators.</p></div>
+<div class="detail-item"><h3>Integrated Ticketing</h3><p>One ticket works across all buses, with simple fares and contactless payment options.</p></div>
+<div class="detail-item"><h3>Reliable Services</h3><p>Consistent standards with real-time tracking, better on-time performance, and accountability.</p></div>
+<div class="detail-item"><h3>Modern Electric Fleet</h3><p>Hundreds of new electric buses with free WiFi, USB charging, comfortable seating, and low-floor accessibility.</p></div>
+<div class="detail-item"><h3>Fair Fares</h3><p>Affordable pricing with concessions for young people, seniors, and those on lower incomes.</p></div>
+<div class="detail-item"><h3>Environmental Benefits</h3><p>Cleaner electric buses with zero emissions, contributing to our 2038 net zero target.</p></div>
+</div></div>
+</div></div>
+</div>
+
+<!-- VIEW: Rail Integration -->
+<div id="view-detail-rail-integration" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Rail Integration</h1><p>Seamless connections between buses, trams, and trains, making it easier than ever to travel across West Yorkshire and beyond.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li><a href="#" onclick="navigateTo('home'); return false;">Travel</a></li>
+<li aria-current="page">Rail Integration</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>Connecting the Network</h2><p>The Weaver Network is working closely with Northern, TransPennine Express, and other rail operators to create a truly integrated transport system. This means easier transfers, coordinated timetables, and unified branding at key stations.</p></div>
+<div class="detail-section"><h2>Key Interchange Stations</h2><div class="detail-grid">
+<div class="detail-item"><h3>Leeds Station</h3><p>Major hub connecting buses, trains, trams, and future mass transit options.</p></div>
+<div class="detail-item"><h3>Bradford Interchange</h3><p>Integrated bus and rail station in the heart of Bradford.</p></div>
+<div class="detail-item"><h3>Huddersfield Station</h3><p>Key connection point for services across West Yorkshire and beyond.</p></div>
+<div class="detail-item"><h3>Wakefield Westgate</h3><p>Modern interchange with excellent bus connections.</p></div>
+</div></div>
+</div></div>
+</div>
+
+<!-- VIEW: Mass Transit -->
+<div id="view-detail-mass-transit" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Mass Transit (Trams)</h1><p>A new tram and mass transit system for West Yorkshire, planned for the late 2030s.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li><a href="#" onclick="navigateTo('home'); return false;">Travel</a></li>
+<li aria-current="page">Mass Transit</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>Trams Are Coming to West Yorkshire</h2><p>Plans are underway for a new tram and mass transit system that will connect major towns and cities across West Yorkshire. Services are potentially running by the late 2030s, backed by over £200 million in transformative investment from the West Yorkshire Combined Authority.</p><p>The mass transit system will complement our franchised bus network and rail services, providing a high-capacity, reliable transport option for the region's growing population.</p></div>
+<div class="detail-section"><h2>Why Mass Transit?</h2><div class="detail-grid">
+<div class="detail-item"><h3>High Capacity</h3><p>Trams can carry far more passengers than buses, reducing congestion on our busiest routes.</p></div>
+<div class="detail-item"><h3>Reliable & Fast</h3><p>Dedicated tracks mean trams aren't stuck in traffic, providing predictable journey times.</p></div>
+<div class="detail-item"><h3>Zero Emissions</h3><p>Electric trams produce no local air pollution, supporting our 2038 net zero target.</p></div>
+<div class="detail-item"><h3>Economic Growth</h3><p>Mass transit systems are proven to drive regeneration and attract investment to surrounding areas.</p></div>
+</div></div>
+<div class="detail-section"><h2>Community Support</h2><p>The mass transit plans have strong backing from communities across West Yorkshire, including Leeds United FC, who see the transformative potential for the region. Public consultation is ongoing to shape the final routes and stations.</p></div>
+</div></div>
+</div>
+
+<!-- VIEW: Walking & Wheeling -->
+<div id="view-detail-walking-wheeling" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Walking & Wheeling</h1><p>Making active travel safer, easier, and more accessible for everyone across West Yorkshire.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li><a href="#" onclick="navigateTo('home'); return false;">Travel</a></li>
+<li aria-current="page">Walking & Wheeling</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>Investing in Active Travel</h2><p>The Weaver Network is committed to making walking and wheeling the natural choice for shorter journeys. We're investing over half a million pounds in walking, wheeling, and cycling hubs across the region, with better pavements, safer crossings, and more accessible routes.</p></div>
+<div class="detail-section"><h2>What We're Doing</h2><div class="detail-grid">
+<div class="detail-item"><h3>Wider Pavements</h3><p>Creating more space for pedestrians, especially in busy town centres.</p></div>
+<div class="detail-item"><h3>Safer Crossings</h3><p>More pedestrian crossings with longer crossing times and better visibility.</p></div>
+<div class="detail-item"><h3>Accessible Routes</h3><p>Step-free access and dropped kerbs throughout the network.</p></div>
+<div class="detail-item"><h3>Better Lighting</h3><p>Improved street lighting to make walking safer at night.</p></div>
+</div></div>
+</div></div>
+</div>
+
+<!-- VIEW: Cycling -->
+<div id="view-detail-cycling" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Cycling Infrastructure</h1><p>Building a comprehensive cycle network that makes cycling safe, convenient, and enjoyable for everyone.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li><a href="#" onclick="navigateTo('home'); return false;">Travel</a></li>
+<li aria-current="page">Cycling</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>Cycling Across West Yorkshire</h2><p>We're creating a comprehensive cycle network with protected lanes, secure parking, and direct routes that connect residential areas with employment centres, schools, and transport hubs. Over half a million pounds is being invested in cycling hubs across the region.</p></div>
+<div class="detail-section"><h2>Cycle Network Features</h2><div class="detail-grid">
+<div class="detail-item"><h3>Protected Lanes</h3><p>Physically separated cycle lanes that keep cyclists safe from traffic.</p></div>
+<div class="detail-item"><h3>Secure Parking</h3><p>Covered, monitored cycle parking at stations and key destinations.</p></div>
+<div class="detail-item"><h3>Bike on Board</h3><p>More buses and trains with capacity for bicycles.</p></div>
+<div class="detail-item"><h3>Cycle Hubs</h3><p>Major interchange points with repairs, hire, and facilities.</p></div>
+</div></div>
+</div></div>
+</div>
+
+<!-- VIEW: Ticketing -->
+<div id="view-detail-ticketing" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Ticketing & Fares</h1><p>Simple, integrated ticketing across all modes of transport. One app, one card, seamless travel.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li><a href="#" onclick="navigateTo('home'); return false;">Travel</a></li>
+<li aria-current="page">Ticketing & Fares</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>One Network, One Ticket</h2><p>The Weaver Network is introducing integrated ticketing that works across buses, trains, trams, and future mass transit. Whether you're using contactless payment, the MCard app, or a smartcard, your journey will be seamless.</p><p>The MCard has already smashed 10 million app ticket sales, proving that West Yorkshire residents want simple, integrated ticketing. We're building on this success to make travel even easier.</p></div>
+<div class="detail-section"><h2>Ticketing Options</h2><div class="detail-grid">
+<div class="detail-item"><h3>Contactless Payment</h3><p>Tap in, tap out with your bank card or mobile device. Daily and weekly capping ensures you always get the best fare.</p></div>
+<div class="detail-item"><h3>MCard App</h3><p>The region's most popular ticketing app, with over 10 million tickets sold. Buy tickets, plan journeys, and get real-time updates all in one place.</p></div>
+<div class="detail-item"><h3>Smartcards</h3><p>Reloadable cards for regular travellers, with season tickets and multi-journey options. Existing Metro smartcards will transition seamlessly.</p></div>
+<div class="detail-item"><h3>Fair Fares</h3><p>Affordable pricing with concessions for young people, seniors, and those on lower incomes.</p></div>
+</div></div>
+</div></div>
+</div>
+
+<!-- VIEW: Accessibility Features -->
+<div id="view-detail-accessibility" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Accessibility</h1><p>Making transport accessible for everyone, regardless of ability. Transport that works for all of West Yorkshire.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li><a href="#" onclick="navigateTo('home'); return false;">Travel</a></li>
+<li aria-current="page">Accessibility</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>Accessible Transport for All</h2><p>The Weaver Network is committed to ensuring that everyone can use public transport independently and with dignity. We're making improvements across the entire network to remove barriers and create a truly inclusive transport system.</p></div>
+<div class="detail-section"><h2>Accessibility Features</h2><div class="detail-grid">
+<div class="detail-item"><h3>Step-Free Access</h3><p>Lifts and ramps at all major stations and interchanges.</p></div>
+<div class="detail-item"><h3>Audio-Visual Announcements</h3><p>Clear announcements and displays on all vehicles and at stops.</p></div>
+<div class="detail-item"><h3>Low-Floor Buses</h3><p>100% accessible fleet with ramps and priority seating.</p></div>
+<div class="detail-item"><h3>Assistance Services</h3><p>Turn-up-and-go assistance at stations and dedicated support lines.</p></div>
+</div></div>
+</div></div>
+</div>
+
+<!-- VIEW: EV Charging -->
+<div id="view-detail-ev-charging" class="page-view">
+<div class="detail-hero"><div class="container"><h1>EV Charging & Cleaner Air</h1><p>Supporting the transition to electric vehicles while championing public and active transport.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li><a href="#" onclick="navigateTo('home'); return false;">Travel</a></li>
+<li aria-current="page">EV Charging</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>A Cleaner West Yorkshire</h2><p>While the Weaver Network champions public and active transport, we recognise that some journeys will still need to be made by car. That's why we're building a strong Electric Vehicle charging network across the region and supporting the transition to electric and shared car use.</p></div>
+<div class="detail-section"><h2>What We're Doing</h2><div class="detail-grid">
+<div class="detail-item"><h3>EV Charging Network</h3><p>Rapid charging points at transport hubs, car parks, and key locations across West Yorkshire.</p></div>
+<div class="detail-item"><h3>Electric Buses</h3><p>Hundreds of new zero-emission electric buses joining the fleet from 2027.</p></div>
+<div class="detail-item"><h3>Shared Car Schemes</h3><p>Supporting car clubs and shared vehicle schemes to reduce private car ownership.</p></div>
+<div class="detail-item"><h3>Clean Air Zones</h3><p>Working with local councils to improve air quality in town and city centres.</p></div>
+</div></div>
+</div></div>
+</div>
+
+<!-- VIEW: Heritage -->
+<div id="view-detail-heritage" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Our Heritage</h1><p>From the textile mills of the Industrial Revolution to the modern transport network of today—woven into the fabric of West Yorkshire.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li aria-current="page">Our Heritage</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>A Legacy of Innovation</h2><p>West Yorkshire has always been at the forefront of transport innovation. From the horse-drawn trams of the 19th century to the modern bus networks of today, our region has a proud history of connecting communities and enabling economic growth.</p><p>The Weaver Network represents the latest chapter in this story. Launched in 2026 by the West Yorkshire Combined Authority, we're replacing the old Metro brand with a fresh, modern identity that reflects both our heritage and our ambition for the future.</p></div>
+<div class="detail-section"><h2>The Name "Weaver Network"</h2><p>Our name pays homage to West Yorkshire's world-renowned textile industry. For centuries, our region was the global centre for wool and cloth production, with mills and factories weaving fabrics that were exported around the world.</p><p>Just as our ancestors wove threads into cloth, we're weaving together different modes of transport—buses, trains, trams, cycling, walking—into a single, integrated network.</p><p>The name was chosen with input from Simon Armitage, the Poet Laureate and West Yorkshire resident, who said: <em>"To me, the Weaver Network name symbolises the threads connecting people with places, shuttling to and from, built on heritage and creating new ties and links."</em></p></div>
+<div class="detail-section"><h2>Cultural Diversity in Our Design</h2><p>Our visual identity celebrates the diverse cultural fabric of West Yorkshire today. The geometric patterns on our vehicles and stations draw inspiration from:</p>
+<div class="detail-grid">
+<div class="detail-item"><h3>Yorkshire Tweeds</h3><p>Traditional woven patterns that reflect our industrial heritage.</p></div>
+<div class="detail-item"><h3>Sari Prints</h3><p>Vibrant colours and patterns celebrating our South Asian communities.</p></div>
+<div class="detail-item"><h3>African Wax Prints</h3><p>Bold designs reflecting the rich cultural heritage of our African and Caribbean communities.</p></div>
+<div class="detail-item"><h3>Iconic Yorkshire Art</h3><p>The distinctive patterns echo the work of David Hockney, Barbara Hepworth, and Henry Moore.</p></div>
+</div></div>
+<div class="detail-section"><h2>Where We Operate</h2><div class="photo-grid">
+<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Leeds_CBD_at_night.jpg/960px-Leeds_CBD_at_night.jpg" alt="Leeds city centre skyline at night" loading="lazy"><figcaption><h3>Leeds</h3><p>The region's largest city and economic hub.</p></figcaption></figure>
+<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Bradford_City_Hall_-_geograph.org.uk_-_5891030_%28cropped%29.jpg" alt="Bradford City Hall" loading="lazy"><figcaption><h3>Bradford</h3><p>Home to a diverse population and rich cultural heritage.</p></figcaption></figure>
+<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Huddersfield_Station.jpg/960px-Huddersfield_Station.jpg" alt="Huddersfield railway station" loading="lazy"><figcaption><h3>Huddersfield</h3><p>A historic market town with excellent transport links.</p></figcaption></figure>
+<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/WakefieldCathedral-1.jpg/960px-WakefieldCathedral-1.jpg" alt="Wakefield Cathedral" loading="lazy"><figcaption><h3>Wakefield</h3><p>The cathedral city with strong connections to Leeds.</p></figcaption></figure>
+<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Dewsbury_Town_Hall%2C_2018.jpg/960px-Dewsbury_Town_Hall%2C_2018.jpg" alt="Dewsbury Town Hall" loading="lazy"><figcaption><h3>Kirklees</h3><p>Encompassing Huddersfield, Dewsbury, and surrounding towns.</p></figcaption></figure>
+<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Halifax_skyline_%282895335451%29.jpg/960px-Halifax_skyline_%282895335451%29.jpg" alt="Halifax skyline" loading="lazy"><figcaption><h3>Calderdale</h3><p>From Halifax to Hebden Bridge, connecting urban and rural communities.</p></figcaption></figure>
+</div></div>
+</div></div>
+</div>
+
+<!-- VIEW: Local Transport Plan -->
+<div id="view-detail-transport-plan" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Local Transport Plan</h1><p>Our strategic vision for transforming transport across West Yorkshire to 2038 and beyond.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li aria-current="page">Local Transport Plan</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>Our Strategic Vision</h2><p>The Local Transport Plan (LTP) sets out the Mayor of West Yorkshire's vision for transforming transport across the region. It's our roadmap for creating a sustainable, inclusive, and efficient transport system that supports economic growth, improves public health, and tackles climate change.</p></div>
+<div class="detail-section"><h2>Key Objectives</h2><div class="detail-grid">
+<div class="detail-item"><h3>Climate Action</h3><p>Achieving net zero carbon emissions from transport by 2038.</p></div>
+<div class="detail-item"><h3>Health & Wellbeing</h3><p>Improving public health through active travel and better air quality.</p></div>
+<div class="detail-item"><h3>Economic Growth</h3><p>Connecting people to jobs, education, and training opportunities.</p></div>
+<div class="detail-item"><h3>Social Inclusion</h3><p>Ensuring everyone can access transport regardless of age, ability, or income.</p></div>
+</div></div>
+</div></div>
+</div>
+
+<!-- VIEW: Get Involved -->
+<div id="view-detail-get-involved" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Get Involved</h1><p>Help shape the future of transport in West Yorkshire. Your voice matters.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li aria-current="page">Get Involved</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>Have Your Say</h2><p>The Weaver Network is being designed for everyone who lives, works, and visits West Yorkshire. We want to hear from you about what matters most in your daily journeys.</p></div>
+<div class="detail-section"><h2>Current Consultations</h2><div class="detail-grid">
+<div class="detail-item"><h3>Local Transport Plan Consultation</h3><p>Help shape the long-term vision for transport in West Yorkshire. Everyone living or working in the region is invited to contribute to the Local Transport Plan consultation.</p><p style="margin-top: 1rem;"><a href="https://www.westyorks-ca.gov.uk/transport/local-transport-plan/" target="_blank" style="color: var(--weaver-lime-dark); font-weight: 600;">Visit the consultation website →</a></p></div>
+<div class="detail-item"><h3>Mass Transit Route Consultation</h3><p>Share your views on the proposed tram and mass transit routes that will connect our towns and cities from the late 2030s.</p><p style="margin-top: 1rem;"><a href="#" onclick="navigateTo('detail-mass-transit'); return false;" style="color: var(--weaver-lime-dark); font-weight: 600;">Learn more →</a></p></div>
+<div class="detail-item"><h3>Bus Franchising Feedback</h3><p>As we roll out franchised bus services across the region, we want to hear what routes and services matter most to your community.</p><p style="margin-top: 1rem;"><a href="#" onclick="navigateTo('detail-franchised-buses'); return false;" style="color: var(--weaver-lime-dark); font-weight: 600;">Share your views →</a></p></div>
+<div class="detail-item"><h3>Community Engagement Events</h3><p>Join us at events across West Yorkshire to learn more about the Weaver Network and share your thoughts in person.</p><p style="margin-top: 1rem;"><a href="#" onclick="navigateTo('detail-contact'); return false;" style="color: var(--weaver-lime-dark); font-weight: 600;">Find an event near you →</a></p></div>
+</div></div>
+<div class="detail-section"><h2>Stay Updated</h2><p>Sign up to receive updates about the Weaver Network, including consultation opportunities, service launches, and community events.</p><p style="margin-top: 1rem;"><a href="mailto:info@westyorks-ca.gov.uk" style="color: var(--weaver-lime-dark); font-weight: 600;">Email us to join our mailing list →</a></p></div>
+</div></div>
+</div>
+
+<!-- VIEW: Contact Us -->
+<div id="view-detail-contact" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Contact Us</h1><p>We're here to help. Get in touch with the Weaver Network team.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li aria-current="page">Contact Us</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>Get in Touch</h2><p>Whether you have a question about our services, want to provide feedback, or need assistance with your journey, we're here to help.</p></div>
+<div class="contact-grid">
+<div class="contact-card">
+<h3><svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg> Address</h3>
+<p><strong>West Yorkshire Combined Authority</strong><br>Weaver Network<br>11 Bond Street<br>Leeds<br>LS1 5BQ</p>
+</div>
+<div class="contact-card">
+<h3><svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2 16 16 0 0 1-14-14 2 2 0 0 1 2-2Z"/></svg> Phone</h3>
+<p><strong>Customer Services:</strong><br><a href="tel:01132457676">0113 245 7676</a></p>
+<p><strong>General Enquiries:</strong><br><a href="tel:01132457000">0113 245 7000</a></p>
+<p>Monday to Friday: 8am - 6pm<br>Saturday: 9am - 1pm</p>
+</div>
+<div class="contact-card">
+<h3><svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> Email</h3>
+<p><strong>Customer Services:</strong><br><a href="mailto:customer.services@westyorks-ca.gov.uk">customer.services@westyorks-ca.gov.uk</a></p>
+<p><strong>General Enquiries:</strong><br><a href="mailto:info@westyorks-ca.gov.uk">info@westyorks-ca.gov.uk</a></p>
+</div>
+<div class="contact-card">
+<h3><svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg> Online</h3>
+<p><strong>Website:</strong><br><a href="https://www.westyorks-ca.gov.uk/weaver-network" target="_blank">westyorks-ca.gov.uk/weaver-network</a></p>
+<p><strong>Follow Us:</strong><br><a href="https://twitter.com/WestYorksCA" target="_blank">Twitter/X: @WestYorksCA</a><br><a href="https://facebook.com/WestYorkshireCombinedAuthority" target="_blank">Facebook: West Yorkshire Combined Authority</a></p>
+</div>
+<div class="contact-card">
+<h3><svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="1.5" fill="currentColor" stroke="none"/><path d="M12 6v6h5"/><path d="M11 12l-1 8"/><circle cx="9" cy="17" r="4"/></svg> Accessibility Support</h3>
+<p><strong>Assistance Line:</strong><br><a href="tel:01132456790">0113 245 6790</a></p>
+<p><strong>Email:</strong><br><a href="mailto:accessibility@westyorks-ca.gov.uk">accessibility@westyorks-ca.gov.uk</a></p>
+</div>
+<div class="contact-card">
+<h3><svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M3 11h18"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="16.5" cy="18.5" r="1.5"/><path d="M7 4v12M17 4v12"/></svg> Lost Property</h3>
+<p><strong>Lost & Found:</strong><br><a href="tel:01132456791">0113 245 6791</a></p>
+<p><strong>Email:</strong><br><a href="mailto:lostproperty@westyorks-ca.gov.uk">lostproperty@westyorks-ca.gov.uk</a></p>
+</div>
+</div>
+</div></div>
+</div>
+
+<!-- VIEW: News -->
+<div id="view-detail-news" class="page-view">
+<div class="detail-hero"><div class="container"><h1>News & Updates</h1><p>The latest news, announcements, and service updates from the Weaver Network.</p></div></div>
+<div class="detail-content"><div class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li aria-current="page">News & Updates</li>
+</ol>
+</nav>
+<div class="news-grid">
+<article class="news-card" onclick="window.open('https://www.bbc.co.uk/news/articles/c9wgrvk8zwdo', '_blank')">
+<div class="news-content">
+<div class="news-date">15 January 2026</div>
+<h3 class="news-title">Weaver Network unveiled as 'new era' for West Yorkshire public transport</h3>
+<p class="news-excerpt">The West Yorkshire Combined Authority has officially launched the Weaver Network brand, replacing Metro with a fresh identity inspired by the region's textile heritage.</p>
+<span class="news-link">Read full story on BBC News →</span>
+</div>
+</article>
+<article class="news-card" onclick="window.open('https://www.bbc.co.uk/news/articles/czd2eygne92o', '_blank')">
+<div class="news-content">
+<div class="news-date">10 January 2026</div>
+<h3 class="news-title">Bus franchising plans for West Yorkshire revealed</h3>
+<p class="news-excerpt">New timeline revealed for bus franchising rollout across Kirklees.</p>
+<span class="news-link">Read more →</span>
+</div>
+</article>
+<article class="news-card" onclick="window.open('https://www.placeyorkshire.co.uk/work-underway-at-huddersfield-bus-station/', '_blank')">
+<div class="news-content">
+<div class="news-date">5 January 2026</div>
+<h3 class="news-title">Work underway at Huddersfield bus station</h3>
+<p class="news-excerpt">Improvements and upgrades continue at Huddersfield bus station as part of the wider Weaver Network transformation.</p>
+<span class="news-link">Read more →</span>
+</div>
+</article>
+</div>
+</div></div>
+</div>
+
+<!-- VIEW: Accessibility Statement Page -->
+<div id="view-detail-accessibility-statement" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Accessibility Statement</h1><p>Our commitment to making the Weaver Network website accessible to everyone.</p></div></div>
+<div class="detail-content"><div class="container accessibility-content">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li aria-current="page">Accessibility Statement</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>How accessible this website is</h2><p>We want as many people as possible to be able to use this website. For example, that means you should be able to:</p><ul><li>change colours, contrast levels and fonts</li><li>zoom in up to 300% without the text spilling off the screen</li><li>navigate most of the website using just a keyboard</li><li>navigate most of the website using speech recognition software</li><li>listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)</li></ul><p>We've also made the website text as simple as possible to understand.</p></div>
+<div class="detail-section"><h2>Compliance status</h2><p>This website is partially compliant with the <strong>Web Content Accessibility Guidelines version 2.1</strong> AA standard.</p></div>
+<div class="detail-section"><h2>Non-accessible content</h2><h3>Live bus tracking map</h3><p>The interactive map on our Bus Tracking page is not fully accessible to screen reader users. We are working to improve this and expect to have a fully accessible alternative by Autumn 2026.</p><h3>PDF documents</h3><p>Some of our PDF documents are not fully accessible to screen reader software. This is a priority and we are working to fix these issues.</p></div>
+<div class="detail-section"><h2>What we're doing to improve accessibility</h2><ul><li>Regular accessibility audits by independent experts</li><li>User testing with people who have disabilities</li><li>Staff training on accessibility best practices</li><li>Ongoing improvements based on user feedback</li></ul></div>
+<div class="detail-section"><h2>Reporting accessibility problems</h2><p>We're always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we're not meeting accessibility requirements, contact us:</p><ul><li>Email: <a href="mailto:accessibility@westyorks-ca.gov.uk" style="color: var(--weaver-lime-dark);">accessibility@westyorks-ca.gov.uk</a></li><li>Phone: <a href="tel:01132456790" style="color: var(--weaver-lime-dark);">0113 245 6790</a></li><li>Post: Weaver Network, 11 Bond Street, Leeds, LS1 5BQ</li></ul></div>
+<div class="detail-section"><h2>Enforcement procedure</h2><p>The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018. If you're not happy with how we respond to your complaint, <a href="https://www.equalityadvisoryservice.com/" style="color: var(--weaver-lime-dark);">contact the Equality Advisory and Support Service (EASS)</a>.</p></div>
+<div class="detail-section"><h2>Technical information</h2><p>The West Yorkshire Combined Authority is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.</p><p><strong>Preparation of this accessibility statement:</strong> This statement was prepared on 15 January 2026. It was last reviewed on 8 June 2026.</p><p>This website was last tested on 1 June 2026. The test was carried out by the WYCA Digital Accessibility Team using automated testing tools and manual testing with assistive technologies.</p></div>
+</div></div>
+</div>
+
+<!-- VIEW: Privacy Policy -->
+<div id="view-detail-privacy" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Privacy Policy</h1><p>How we collect, use, and protect your personal information.</p></div></div>
+<div class="detail-content"><div class="container accessibility-content">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li aria-current="page">Privacy Policy</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>Introduction</h2><p>The West Yorkshire Combined Authority (Weaver Network) is committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible way. This policy outlines how we collect, use, and protect your data when you use our website and services.</p></div>
+<div class="detail-section"><h2>Information We Collect</h2><p>We may collect the following types of information:</p><ul><li><strong>Personal Information:</strong> Name, email address, phone number, and postal address when you contact us or create an account</li><li><strong>Journey Data:</strong> Travel patterns, routes used, and journey planning information</li><li><strong>Technical Information:</strong> IP address, browser type, operating system, and device information</li><li><strong>Usage Data:</strong> Pages visited, time spent on pages, and interaction with our services</li></ul></div>
+<div class="detail-section"><h2>How We Use Your Information</h2><p>We use your information to:</p><ul><li>Provide and improve our transport services</li><li>Process ticket purchases and journey planning</li><li>Send service updates, alerts, and important notifications</li><li>Respond to your enquiries and provide customer support</li><li>Analyse usage patterns to improve our services</li><li>Comply with legal obligations</li></ul></div>
+<div class="detail-section"><h2>Data Security</h2><p>We implement appropriate technical and organisational measures to protect your personal information against unauthorised access, alteration, disclosure, or destruction. This includes encryption, secure servers, and regular security assessments.</p></div>
+<div class="detail-section"><h2>Your Rights</h2><p>Under data protection law, you have the right to:</p><ul><li>Access your personal data</li><li>Request correction of inaccurate data</li><li>Request deletion of your data</li><li>Object to processing of your data</li><li>Request restriction of processing</li><li>Data portability</li></ul></div>
+<div class="detail-section"><h2>Contact Us</h2><p>If you have any questions about this privacy policy or our data practices, please contact our Data Protection Officer at <a href="mailto:dpo@westyorks-ca.gov.uk">dpo@westyorks-ca.gov.uk</a> or write to us at: Weaver Network, 11 Bond Street, Leeds, LS1 5BQ.</p><p><strong>Last updated:</strong> 8 June 2026</p></div>
+</div></div>
+</div>
+
+<!-- VIEW: Terms of Use -->
+<div id="view-detail-terms" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Terms of Use</h1><p>Terms and conditions for using the Weaver Network website and services.</p></div></div>
+<div class="detail-content"><div class="container accessibility-content">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li aria-current="page">Terms of Use</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>Acceptance of Terms</h2><p>By accessing and using the Weaver Network website and services, you accept and agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use our services.</p></div>
+<div class="detail-section"><h2>Use of Services</h2><p>You agree to use the Weaver Network services only for lawful purposes and in accordance with these terms. You agree not to:</p><ul><li>Use the service in any way that causes or may cause damage to the service</li><li>Access or attempt to access any part of the service by any means other than through the interface provided</li><li>Use the service for any unauthorised purpose</li><li>Interfere with, disrupt, or create an undue burden on the service</li></ul></div>
+<div class="detail-section"><h2>Accuracy of Information</h2><p>While we strive to provide accurate and up-to-date information about services, timetables, and fares, we cannot guarantee that all information is completely accurate or current. Service information may change without notice.</p></div>
+<div class="detail-section"><h2>Limitation of Liability</h2><p>The Weaver Network provides services on an "as is" and "as available" basis. We do not warrant that the service will be uninterrupted, secure, or error-free. We shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the service.</p></div>
+<div class="detail-section"><h2>Intellectual Property</h2><p>All content, features, and functionality of the Weaver Network website and services, including but not limited to text, graphics, logos, and software, are the exclusive property of the West Yorkshire Combined Authority and are protected by copyright, trademark, and other intellectual property laws.</p></div>
+<div class="detail-section"><h2>Changes to Terms</h2><p>We reserve the right to modify these terms at any time. We will notify users of any material changes by posting the new terms on this page. Your continued use of the service after such changes constitutes acceptance of the new terms.</p></div>
+<div class="detail-section"><h2>Governing Law</h2><p>These terms shall be governed by and construed in accordance with the laws of England and Wales. Any disputes arising under these terms shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p><p><strong>Last updated:</strong> 8 June 2026</p></div>
+</div></div>
+</div>
+</main>
+
+<!-- Consultation Banner -->
+<section class="consultation-banner">
+<div class="container">
+<h2>Help Shape the Future of Transport</h2>
+<p>Everyone living or working in West Yorkshire is invited to help shape the Local Transport Plan. Share your views on the transport improvements that matter most to you.</p>
+<button class="btn btn-consultation" onclick="window.open('https://www.westyorks-ca.gov.uk/transport/local-transport-plan/', '_blank')">Join the Consultation →</button>
+</div>
+</section>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<div class="brand-logo" style="color: var(--weaver-lime); cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll to top">
+<div class="brand-mark" aria-hidden="true"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF8AAAA7CAYAAAAdKVa5AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAYkSURBVHhe7ZtZqFVVGMdVSjNssIFspCIajOghqpd6iGh8KBokiiYfyqBCigYwIamHwlRsErMsm6iUtKLsxQoztcEoEzRzKBpszuYZ6vfffPew77rrnvOtffY+D7L+8OOevdb3/b919j1n77XX3mdIVlZWVlZWVlZWVlZWVlZWVta2rckvjTkNJsHVcBGcDafDqXAmjIMr4WaYCnNhhm2PMptKIv9oOA9UezJMgzkwH5bAB/AN/DcI38K78BCcA3ubdZLIGwWqfyNcDGNhLxgJI2A/OBa0r84F7ZMLYQJcazbpIvkJiL0xD+PNJknkHQ+vlnzqQP+IcVYiSYGPh99BHwp9QCaaTbpIfgBiBTxMMJskkfd84FMXU62EW+TsE3ikMNdsqgmD2YFhCreYjVvk6Kv7T8mjTu6xMm6Rc1vg4UWf/EvNppow0DE2Zu5hutm4Rc79gUedVNn5bwYeXhaaRXVhopNVzNzDg2bjFjmvBB51MtPKuET8mCA/hdvNproweTgwTeFJs3GJ+MPhp1J+3UyzUi4Rr1lLzKcTq2CM2VQXJvNKpqnMNxuXiNdULuZTFzOslEvEPx3ke7nDLLoTRo8HxiksMBuXiL87yK8b9zGf2D3h51KuF+UcYjbdCSNd0MSKeHjWbDqK2GPgr1JuE8y2ch1F7AVBrpcpZtG9MHsuME9hkdl0FLG6io551Mk8K9dRig1yvZxgFt0Ls5cD8xReNJuOIva9ILcJnrJybUXcAfBlKc/LErOoRxi+FhRIwTUY4rQGEsuvG9c3kbjrgzwv55tFPcJwRVAghWVm01bEdXNoS2GxlRxUxAyH1aUcN2ZRnzDtZue/YzaDipirgpwm6fhNJOaMIMdLvZ96CdM3giIprDabQUXMx0FOkyy1slHRPxQeLcW7MYt6hfHSsFAC68wmKvp1PyCW1xTLrXRU9B8ZxHtZZRb1CmOtSccKethgNlHR/0wQ3zSddr5uCsXy2mLp9QvzxWGxBDaZzQDRp4uqWE6TDLrz6dsJKk13zaJ+Yb4oLJZAu53fyxNtHyus/ADRd1IQ6+Uas6hfmFddXBLtdv77QWwvWGnl+4l2nWgr3bcwi2ZEgW5WNTeaTT/RrpvNsfimecuG0E+0HxrEedlqFs2IArOCgimsNZt+on18ENcrtM4+1IbREm16OiIW34mRZtGMKHBXUDCFNWbTEm3D4KNSTC/Roa7fzmd7F/jQ+pMwi+ZEkSlh0QRiO183yGOxXn6JtHlZA+HOr3qiTb5FmiyKVF1kEuvNpiXaHgtiUlgA3dxmXAfDbCiF2L6z1O/G0psVhS4PCyew2WwKsa259L+l/iTMo5udvwlaO5/XWjr+zvqSMItmRSEtNFXdYZ+YTSG2rwj6kzCPbnb+p7BrMRjE67NKfSmcYhbNikJHQNXbe+En/4ugP4XiDfO33bOZnVD93cxnR5hp7Ukov2eioJ49jA6kA61jPq9vhT9KfUmYjXwqrToan0Hfzj8M1lp7CluKgfRKFPw1GICXty1fM4qvS+2pzCkGgnjdzRMO66E47PD3Mvjb2t0Ug+ilKFp1elc8KMrfZVDlMYw+RhQDQby+KehL4XXQvP5AqPRIjA2jd6Loj+EgHOgQM9nyNcX709pTuaEYhIltPa8fi/Ogdaqd4WRYbm0puB89qU0UrXKS0z9MP5LQs55VT7S/wb42jEJs69n9WKwHXa3vDpfAD9bmxobQW1F4czgQB1vgXngBPre2VK6zIbRE28FQaTkAtIazB0wstbmxIfRWFK6y87WOch/oFyZVTth6gmC0DaEl2nShttBiUjkR9DMe/WQn1t+OsTaE3orC+vrHBtQOrYbqKd9HSm1eVG+SlR8g+vSNiuV1QnP77SH5pr2V7r0oPh00TdP9XB3HdXdLM5iVsAE0jdRhRvPovje2neXqORitYoqNoOP/96ArVX0jdA2hk7P+9l1PaC4/YOm3T/RpxiMfLQ3IS+cX+WlGpZmZ/mp7KyjmK9ChTyd+XeUqR+9HY9L4Na4y6iszy0pvO+JN6fh7FOgkehzoalq/8htuIW6RMxq0VnMQ7A/y3sG6s7KysrKysrKysrKyGtaQIf8DOOuzv9+BsTUAAAAASUVORK5CYII=" alt=""></div>
+Weaver Network
+</div>
+<p>Delivering the Mayor of West Yorkshire's Local Transport Plan. Your journeys, our promise.</p>
+</div>
+<div class="footer-col">
+<h4>Travel</h4>
+<ul>
+<li><a href="#" onclick="window.open('https://bustimes.org/areas/107', '_blank'); return false;">Plan a Journey</a></li>
+<li><a href="#" onclick="window.open('https://bustimes.org/areas/107', '_blank'); return false;">Bus Tracking</a></li>
+<li><a href="#" onclick="navigateTo('detail-ticketing'); return false;">Tickets & Fares</a></li>
+<li><a href="#" onclick="navigateTo('detail-accessibility'); return false;">Accessibility</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Network</h4>
+<ul>
+<li><a href="#" onclick="navigateTo('detail-franchised-buses'); return false;">Bus Franchising</a></li>
+<li><a href="#" onclick="navigateTo('detail-mass-transit'); return false;">Mass Transit</a></li>
+<li><a href="#" onclick="navigateTo('detail-walking-wheeling'); return false;">Walking & Wheeling</a></li>
+<li><a href="#" onclick="navigateTo('detail-cycling'); return false;">Cycling</a></li>
+<li><a href="#" onclick="navigateTo('detail-rail-integration'); return false;">Rail Partners</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>About</h4>
+<ul>
+<li><a href="#" onclick="navigateTo('detail-heritage'); return false;">Our Heritage</a></li>
+<li><a href="#" onclick="navigateTo('detail-transport-plan'); return false;">Local Transport Plan</a></li>
+<li><a href="#" onclick="navigateTo('detail-get-involved'); return false;">Get Involved</a></li>
+<li><a href="#" onclick="navigateTo('detail-news'); return false;">News</a></li>
+<li><a href="#" onclick="navigateTo('detail-contact'); return false;">Contact Us</a></li>
+<li><a href="#" onclick="navigateTo('detail-accessibility-statement'); return false;">Accessibility Statement</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2026 West Yorkshire Combined Authority. All rights reserved.</p>
+<div>
+<a href="#" onclick="navigateTo('detail-privacy'); return false;" style="color: rgba(255,255,255,0.6); margin-right: 1rem;">Privacy Policy</a>
+<a href="#" onclick="navigateTo('detail-terms'); return false;" style="color: rgba(255,255,255,0.6);">Terms of Use</a>
+</div>
+</div>
+</div>
+</footer>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">
+<div class="cookie-content">
+<div class="cookie-text">
+<h3>We use cookies on this website</h3>
+<p>We use cookies to make this website work, analyse traffic, and improve your experience. By continuing to use this site, you agree to our use of cookies. Read our <a href="#" onclick="navigateTo('detail-privacy'); return false;">cookie policy</a> for more information.</p>
+</div>
+<div class="cookie-actions">
+<button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accept all</button>
+<button class="cookie-btn cookie-reject" onclick="rejectCookies()">Reject non-essential</button>
+<button class="cookie-btn cookie-settings" onclick="openCookieSettings()">Settings</button>
+</div>
+</div>
+</div>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</button>
+
+<script>
+const searchData = [
+  { title: 'Bradford Interchange', type: 'Station', action: () => navigateTo('detail-rail-integration') },
+  { title: 'Leeds Station', type: 'Station', action: () => navigateTo('detail-rail-integration') },
+  { title: 'Huddersfield Station', type: 'Station', action: () => navigateTo('detail-rail-integration') },
+  { title: 'Wakefield Westgate', type: 'Station', action: () => navigateTo('detail-rail-integration') },
+  { title: 'Heckmondwike Bus Station', type: 'Station', action: () => navigateTo('detail-franchised-buses') },
+  { title: 'Tickets and fares', type: 'Info', action: () => navigateTo('detail-ticketing') },
+  { title: 'MCard', type: 'Info', action: () => navigateTo('detail-ticketing') },
+  { title: 'Contactless', type: 'Info', action: () => navigateTo('detail-ticketing') },
+  { title: 'Accessibility', type: 'Info', action: () => navigateTo('detail-accessibility') },
+  { title: 'Bus franchising', type: 'Info', action: () => navigateTo('detail-franchised-buses') },
+  { title: 'Mass transit', type: 'Info', action: () => navigateTo('detail-mass-transit') },
+  { title: 'Trams', type: 'Info', action: () => navigateTo('detail-mass-transit') },
+  { title: 'Lost property', type: 'Info', action: () => navigateTo('detail-contact') },
+  { title: 'Bus Tracking', type: 'Service', action: () => window.open('https://bustimes.org/areas/107', '_blank') },
+  { title: 'Contact Us', type: 'Info', action: () => navigateTo('detail-contact') },
+  { title: 'Heritage', type: 'Info', action: () => navigateTo('detail-heritage') },
+  { title: 'Simon Armitage', type: 'Info', action: () => navigateTo('detail-heritage') },
+  { title: 'Walking & Wheeling', type: 'Info', action: () => navigateTo('detail-walking-wheeling') },
+  { title: 'Cycling', type: 'Info', action: () => navigateTo('detail-cycling') },
+  { title: 'EV Charging', type: 'Info', action: () => navigateTo('detail-ev-charging') },
+  { title: 'Electric vehicles', type: 'Info', action: () => navigateTo('detail-ev-charging') },
+  { title: 'News', type: 'Info', action: () => navigateTo('detail-news') },
+  { title: 'Privacy Policy', type: 'Info', action: () => navigateTo('detail-privacy') },
+  { title: 'Terms of Use', type: 'Info', action: () => navigateTo('detail-terms') },
+  { title: 'Get Involved', type: 'Info', action: () => navigateTo('detail-get-involved') },
+  { title: 'Consultation', type: 'Info', action: () => navigateTo('detail-get-involved') },
+  { title: 'Local Transport Plan', type: 'Info', action: () => navigateTo('detail-transport-plan') },
+  { title: 'Net zero 2038', type: 'Info', action: () => navigateTo('detail-transport-plan') },
+  { title: 'Mayor Tracy Brabin', type: 'Info', action: () => navigateTo('home') },
+  { title: 'WYMetro retirement', type: 'Info', action: () => navigateTo('home') }
+];
+
+function planJourney(event) {
+  event.preventDefault();
+  const from = document.getElementById('journeyFrom').value.trim();
+  const to = document.getElementById('journeyTo').value.trim();
+  if (!from || !to) return false;
+  const origin = encodeURIComponent(from + ', West Yorkshire, UK');
+  const destination = encodeURIComponent(to + ', West Yorkshire, UK');
+  window.open(`https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=transit`, '_blank');
+  return false;
+}
+
+function navigateTo(view) {
+  document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+  
+  const targetView = document.getElementById(`view-${view}`);
+  if (targetView) {
+    targetView.classList.add('active');
+  }
+  
+  const navLinks = document.querySelectorAll('.nav-link');
+  if (view === 'home' && navLinks[0]) navLinks[0].classList.add('active');
+  
+  window.scrollTo(0, 0);
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+  
+  setTimeout(() => {
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }, 100);
+}
+
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.querySelector('.mobile-menu-btn');
+  const isOpen = menu.classList.toggle('open');
+  menu.setAttribute('aria-hidden', !isOpen);
+  btn.setAttribute('aria-expanded', isOpen);
+}
+
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    document.getElementById('globalSearch').focus();
+  }, 100);
+}
+
+function closeSearch() {
+  document.getElementById('searchOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+  document.getElementById('globalSearch').value = '';
+  document.getElementById('searchResults').style.display = 'none';
+}
+
+function handleGlobalSearch(query) {
+  const resultsContainer = document.getElementById('searchResults');
+  if (query.length < 2) {
+    resultsContainer.style.display = 'none';
+    return;
+  }
+  const results = searchData.filter(item =>
+    item.title.toLowerCase().includes(query.toLowerCase())
+  );
+  if (results.length > 0) {
+    resultsContainer.innerHTML = results.map((item, index) => `
+      <div class="search-suggestion-item" onclick="handleSearchResult(${index})">
+        <span class="search-suggestion-title">${item.title}</span>
+        <span class="search-suggestion-type">${item.type}</span>
+      </div>
+    `).join('');
+    resultsContainer.style.display = 'block';
+  } else {
+    resultsContainer.innerHTML = '<div class="search-suggestion-item"><span class="search-suggestion-title">No results found</span></div>';
+    resultsContainer.style.display = 'block';
+  }
+}
+
+function handleSearchResult(index) {
+  const results = searchData.filter(item =>
+    item.title.toLowerCase().includes(document.getElementById('globalSearch').value.toLowerCase())
+  );
+  if (results[index]) {
+    results[index].action();
+    closeSearch();
+  }
+}
+
+function handlePopularSearch(query) {
+  document.getElementById('globalSearch').value = query;
+  handleGlobalSearch(query);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('globalSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      handleGlobalSearch(e.target.value);
+    });
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeSearch();
+  }
+});
+
+function toggleFaq(element) {
+  const faqItem = element.parentElement;
+  const isOpen = faqItem.classList.contains('open');
+  
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.classList.remove('open');
+  });
+  
+  if (!isOpen) {
+    faqItem.classList.add('open');
+  }
+}
+
+function checkCookieConsent() {
+  const consent = localStorage.getItem('weaverCookieConsent');
+  if (!consent) {
+    setTimeout(() => {
+      document.getElementById('cookieBanner').classList.add('active');
+    }, 1000);
+  }
+}
+
+function acceptCookies() {
+  localStorage.setItem('weaverCookieConsent', 'accepted');
+  document.getElementById('cookieBanner').classList.remove('active');
+}
+
+function rejectCookies() {
+  localStorage.setItem('weaverCookieConsent', 'rejected');
+  document.getElementById('cookieBanner').classList.remove('active');
+}
+
+function openCookieSettings() {
+  alert('Cookie settings panel would open here, allowing users to choose which categories of cookies to accept.');
+}
+
+// Scroll progress bar, back-to-top button, and hero parallax
+const scrollProgressEl = document.getElementById('scrollProgress');
+const backToTopEl = document.getElementById('backToTop');
+const heroBgEl = document.querySelector('.hero-bg');
+function onScrollPolish() {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  if (scrollProgressEl) scrollProgressEl.style.width = progress + '%';
+  if (backToTopEl) backToTopEl.classList.toggle('visible', scrollTop > 400);
+  if (heroBgEl) heroBgEl.style.transform = `translateY(${scrollTop * 0.3}px)`;
+}
+window.addEventListener('scroll', onScrollPolish, { passive: true });
+onScrollPolish();
+
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      entry.target.querySelectorAll('.counter').forEach(runOdometerCounter);
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const textObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      textObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+// SCROLLING ODOMETER NUMBERS ANIMATION LOGIC
+function runOdometerCounter(el) {
+    const target = el.getAttribute('data-target');
+    const prefix = el.getAttribute('data-prefix') || '';
+    const suffix = el.getAttribute('data-suffix') || '';
+
+    // Build the odometer: each digit of the target gets its own
+    // scrolling strip of 0-9, prefix/suffix render as static text.
+    el.innerHTML = (prefix + target + suffix).split('').map(ch => {
+        if (ch >= '0' && ch <= '9') {
+            const strip = Array.from({ length: 10 }, (_, d) => `<span>${d}</span>`).join('');
+            return `<span class="odometer-digit"><span class="odometer-strip">${strip}</span></span>`;
+        }
+        return `<span class="odometer-static">${ch}</span>`;
+    }).join('');
+
+    // Kick off the roll for each digit, staggered left to right.
+    requestAnimationFrame(() => {
+        const strips = el.querySelectorAll('.odometer-strip');
+        target.split('').forEach((digit, i) => {
+            setTimeout(() => {
+                strips[i].style.transform = `translateY(-${digit}em)`;
+            }, i * 150);
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  checkCookieConsent();
+
+  const textElements = document.querySelectorAll('.section h2, .section h3, .section p, .detail-section h2, .detail-section h3, .detail-section p, .detail-item h3, .detail-item p, .heritage-content h2, .heritage-content p, .news-title, .news-excerpt, .faq-question h3, .faq-answer p');
+  textElements.forEach(el => {
+    if (!el.closest('.reveal') && !el.closest('.hero-content')) {
+      el.classList.add('text-animate');
+      textObserver.observe(el);
+    }
+  });
+
+});
+
+window.planJourney = planJourney;
+window.navigateTo = navigateTo;
+window.toggleMobileMenu = toggleMobileMenu;
+window.openSearch = openSearch;
+window.closeSearch = closeSearch;
+window.handleSearchResult = handleSearchResult;
+window.handlePopularSearch = handlePopularSearch;
+window.acceptCookies = acceptCookies;
+window.rejectCookies = rejectCookies;
+window.openCookieSettings = openCookieSettings;
+window.toggleFaq = toggleFaq;
+</script>
+</body>
+</html>
