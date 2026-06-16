@@ -529,20 +529,83 @@ a { color: inherit; text-decoration: none; transition: var(--transition); }
 .contact-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 767px) {
-.hero-actions { flex-direction: column; width: 100%; }
-.btn { width: 100%; }
-.planner-card { grid-template-columns: 1fr; }
-.cookie-content { grid-template-columns: 1fr; }
-.cookie-actions { flex-wrap: wrap; }
+/* Layout */
 .service-status-bar { display: none; }
 .site-header { top: 0; }
 .page-view { padding-top: 80px; }
-.hero { min-height: calc(100vh - 80px); }
+.hero { min-height: calc(100vh - 80px); padding: var(--space-xl) 0; }
 .mobile-menu { top: 80px; }
+
+/* Hero */
+.hero-actions { flex-direction: column; width: 100%; }
+.btn-hero-primary, .btn-hero-secondary { width: 100%; justify-content: center; }
+.hero h1 { font-size: clamp(2rem, 8vw, 2.75rem); }
+.hero p { font-size: 1rem; }
+
+/* Journey planner */
+.planner-card { grid-template-columns: 1fr; }
+.planner-widget { margin-top: -2rem; }
+
+/* Grids — 2-col on mobile where 1-col would be too sparse */
+.districts-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
+.district-card { min-height: 160px; }
+.photo-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); }
+.benefits-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
+.detail-grid, .contact-grid { grid-template-columns: 1fr; }
+
+/* Sections — tighter padding on mobile */
+.section, .benefits-section, .voices-section, .news-section,
+.mayor-section, .heritage-section, .faq-section, .timeline-section,
+.glance-section, .districts-section, .consultation-banner { padding: var(--space-xl) 0; }
+.detail-hero { padding: var(--space-xl) 0; }
+.detail-content { padding: var(--space-xl) 0; }
+.detail-hero h1 { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+
+/* Timeline */
 .timeline::before { left: 20px; }
 .timeline-item, .timeline-item:nth-child(odd) { flex-direction: row; padding-left: 50px; }
 .timeline-content { width: 100%; }
 .timeline-dot { left: 20px; }
+
+/* Search overlay */
+.search-overlay { padding-top: 80px; align-items: flex-start; }
+.search-container { padding: 0 var(--space-md); }
+.search-overlay-input { font-size: 1rem; padding: 1rem 1rem 1rem 3rem; }
+
+/* Cookie banner */
+.cookie-content { grid-template-columns: 1fr; }
+.cookie-actions { flex-wrap: wrap; gap: var(--space-xs); }
+.cookie-btn { flex: 1; min-width: 0; text-align: center; padding: 0.65rem 1rem; font-size: 0.85rem; }
+
+/* Cookie settings modal */
+.cookie-modal { padding: var(--space-lg); }
+
+/* Redirect modal */
+.redirect-modal { padding: var(--space-lg); }
+
+/* Tables — horizontal scroll */
+.detail-section table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Footer */
+.footer-bottom { font-size: 0.8rem; }
+.footer-bottom a { display: block; margin-bottom: var(--space-xs); }
+
+/* Mayor section */
+.mayor-image { max-width: 200px; }
+
+/* Section headers */
+.section-header { margin-bottom: var(--space-lg); }
+.section-header h2 { font-size: clamp(1.75rem, 7vw, 2.25rem); }
+.section-header p { font-size: 1rem; }
+
+/* Voice cards */
+.voices-grid { grid-template-columns: 1fr; }
+
+/* News */
+.news-grid { grid-template-columns: 1fr; }
+
+/* Feature grid */
+.feature-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
