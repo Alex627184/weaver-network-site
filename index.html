@@ -4,7 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Weaver Network: West Yorkshire's integrated public transport system. Plan journeys, track live buses, and explore our franchised network.">
+<meta name="theme-color" content="#0D3B2E">
 <title>Weaver Network | West Yorkshire's Integrated Transport</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Weaver Network">
+<meta property="og:title" content="Weaver Network | West Yorkshire's Integrated Transport">
+<meta property="og:description" content="West Yorkshire's integrated public transport system. Plan journeys, track live buses, and explore our franchised network.">
+<meta property="og:url" content="https://alex627184.github.io/weaver-network-site/">
+<meta property="og:image" content="https://alex627184.github.io/weaver-network-site/images/hero-bus.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Weaver Network | West Yorkshire's Integrated Transport">
+<meta name="twitter:description" content="West Yorkshire's integrated public transport system. Plan journeys, track live buses, and explore our franchised network.">
+<meta name="twitter:image" content="https://alex627184.github.io/weaver-network-site/images/hero-bus.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -18,6 +29,7 @@
 --weaver-lime-dark: #4A6B10;
 --clay-red: #B24c38;
 --cream: #F9F7F2;
+--pale-green: #EAF4DC;
 --white: #FFFFFF;
 --charcoal: #1A1A1A;
 --mid-gray: #4A4A4A;
@@ -201,9 +213,9 @@ a { color: inherit; text-decoration: none; transition: var(--transition); }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 .hero { position: relative; min-height: calc(100vh - 116px); display: flex; align-items: center; background: var(--weaver-dark); color: white; padding: var(--space-2xl) 0; overflow: hidden; }
-.hero-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5f1P4oP9K_jQMDttU_Ajgu0hmDd9_7QGicA&s') center/cover no-repeat; opacity: 0.4; filter: blur(2px); }
+.hero-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('images/hero-bus.jpg') center/cover no-repeat; opacity: 0.4; filter: blur(2px); }
 .hero-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(13, 59, 46, 0.95) 0%, rgba(13, 59, 46, 0.85) 50%, rgba(27, 67, 50, 0.75) 100%); }
-.hero-weave { position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; color: var(--weaver-lime); opacity: 0.08; pointer-events: none; }
+
 
 /* Thread divider */
 .thread-divider { display: block; width: 100%; height: 28px; color: var(--weaver-lime); }
@@ -226,7 +238,7 @@ a { color: inherit; text-decoration: none; transition: var(--transition); }
 .input-group input { width: 100%; padding: 1rem; border: 2px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 1rem; transition: var(--transition); background: var(--cream); }
 .input-group input:focus { outline: none; border-color: var(--weaver-lime); background: white; box-shadow: 0 0 0 4px rgba(124, 181, 24, 0.15); }
 .planner-submit { height: 100%; padding: 1rem 1.75rem; white-space: nowrap; }
-.section { padding: var(--space-2xl) 0; }
+.section { padding: var(--space-2xl) 0; border-top: 1px solid var(--border); }
 .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--space-lg); }
 .section-header { text-align: center; max-width: 700px; margin: 0 auto var(--space-xl); }
 .section-header h2 { font-size: clamp(2rem, 4vw, 2.75rem); color: var(--weaver-dark); margin-bottom: var(--space-sm); }
@@ -256,7 +268,7 @@ a { color: inherit; text-decoration: none; transition: var(--transition); }
 .mayor-content cite span { display: block; color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.95rem; margin-top: 0.25rem; }
 
 /* Benefits Section */
-.benefits-section { background: white; padding: var(--space-2xl) 0; }
+.benefits-section { background: var(--pale-green); padding: var(--space-2xl) 0; }
 .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg); }
 .benefit-card { text-align: center; padding: var(--space-lg); border-radius: var(--radius-lg); background: var(--cream); transition: var(--transition); }
 .benefit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
@@ -289,7 +301,6 @@ a { color: inherit; text-decoration: none; transition: var(--transition); }
 
 /* Districts Section */
 .districts-section { background: var(--cream); padding: var(--space-2xl) 0; position: relative; overflow: hidden; }
-.weave-corner { position: absolute; top: 0; right: 0; width: 260px; height: 260px; color: var(--weaver-dark); opacity: 0.05; pointer-events: none; transform: translate(25%, -25%); }
 .districts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-lg); }
 .district-card { position: relative; border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; min-height: 220px; display: flex; flex-direction: column; justify-content: flex-end; transition: var(--transition); box-shadow: var(--shadow-sm); }
 .district-card:hover, .district-card:focus-visible { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
@@ -323,12 +334,13 @@ a { color: inherit; text-decoration: none; transition: var(--transition); }
 .voice-card blockquote::before { content: '\201C'; }
 .voice-card blockquote::after { content: '\201D'; }
 .voice-card figcaption { display: flex; align-items: center; gap: var(--space-sm); }
-.voice-avatar { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; background: var(--weaver-lime); color: var(--weaver-dark); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.95rem; }
+.voice-avatar { flex-shrink: 0; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: center top; border: 2px solid var(--weaver-lime); }
+.voice-avatar-initials { flex-shrink: 0; width: 52px; height: 52px; border-radius: 50%; background: var(--weaver-teal); color: var(--weaver-lime); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; border: 2px solid var(--weaver-lime); font-family: var(--font-heading); }
 .voice-meta { display: flex; flex-direction: column; line-height: 1.3; }
 .voice-meta strong { color: var(--weaver-dark); font-size: 0.95rem; }
 .voice-meta span { font-size: 0.82rem; color: var(--mid-gray); }
 
-.news-section { background: white; padding: var(--space-2xl) 0; }
+.news-section { background: var(--pale-green); padding: var(--space-2xl) 0; }
 .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-lg); }
 .news-card { background: var(--cream); border-radius: var(--radius-lg); overflow: hidden; transition: var(--transition); cursor: pointer; border: 1px solid var(--border); padding: var(--space-lg); }
 .news-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
@@ -421,6 +433,9 @@ a { color: inherit; text-decoration: none; transition: var(--transition); }
 .site-footer { background: var(--weaver-dark); color: white; padding: var(--space-2xl) 0 var(--space-lg); }
 .footer-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); margin-bottom: var(--space-xl); }
 .footer-brand p { color: rgba(255,255,255,0.6); margin-top: var(--space-sm); font-size: 0.9rem; max-width: 300px; line-height: 1.6; }
+.footer-social { display: flex; gap: var(--space-sm); margin-top: var(--space-md); }
+.footer-social-link { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); transition: var(--transition); }
+.footer-social-link:hover { background: var(--weaver-lime); color: var(--weaver-dark); }
 .footer-col h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-md); color: rgba(255,255,255,0.5); }
 .footer-col ul { list-style: none; }
 .footer-col li { margin-bottom: var(--space-xs); }
@@ -442,6 +457,36 @@ a { color: inherit; text-decoration: none; transition: var(--transition); }
 .cookie-reject:hover { border-color: white; }
 .cookie-settings { background: transparent; color: var(--weaver-lime); border-color: var(--weaver-lime); }
 .cookie-settings:hover { background: rgba(124, 181, 24, 0.1); }
+
+/* Cookie settings modal */
+.cookie-modal-backdrop { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(13, 59, 46, 0.55); z-index: 3100; display: none; align-items: center; justify-content: center; padding: var(--space-lg); }
+.cookie-modal-backdrop.active { display: flex; }
+.cookie-modal { background: var(--white); color: var(--weaver-dark); border-radius: var(--radius-lg); padding: var(--space-xl); max-width: 480px; width: 100%; box-shadow: var(--shadow-lg); }
+.cookie-modal h3 { color: var(--weaver-dark); margin-bottom: var(--space-sm); }
+.cookie-modal > p { font-size: 0.9rem; line-height: 1.5; color: var(--weaver-dark-lighter); margin-bottom: var(--space-lg); }
+.cookie-modal-option { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-md); padding: var(--space-md) 0; border-top: 1px solid var(--border); }
+.cookie-modal-option-text h4 { font-size: 1rem; margin-bottom: 0.25rem; color: var(--weaver-dark); }
+.cookie-modal-option-text p { font-size: 0.85rem; line-height: 1.4; color: var(--weaver-dark-lighter); }
+.cookie-toggle { position: relative; display: inline-block; width: 44px; height: 26px; flex-shrink: 0; cursor: pointer; }
+.cookie-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+.cookie-toggle-track { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: var(--border); border-radius: 999px; transition: var(--transition); }
+.cookie-toggle-thumb { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: var(--white); border-radius: 50%; transition: var(--transition); box-shadow: var(--shadow-sm); }
+.cookie-toggle input:checked + .cookie-toggle-track { background: var(--weaver-lime); }
+.cookie-toggle input:checked + .cookie-toggle-track .cookie-toggle-thumb { transform: translateX(18px); }
+.cookie-toggle-disabled { cursor: not-allowed; opacity: 0.6; }
+.cookie-modal-actions { display: flex; justify-content: flex-end; gap: var(--space-sm); margin-top: var(--space-lg); }
+
+/* External redirect modal */
+.redirect-backdrop { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(13,59,46,0.6); backdrop-filter: blur(4px); z-index: 4000; display: none; align-items: center; justify-content: center; padding: var(--space-lg); }
+.redirect-backdrop.active { display: flex; }
+.redirect-modal { background: var(--white); border-radius: var(--radius-lg); padding: var(--space-xl); max-width: 360px; width: 100%; box-shadow: var(--shadow-lg); text-align: center; }
+.redirect-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--pale-green); color: var(--weaver-teal); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-md); }
+.redirect-label { font-size: 0.9rem; color: var(--mid-gray); margin-bottom: 0.25rem; }
+.redirect-site { font-size: 1.1rem; font-weight: 700; color: var(--weaver-dark); font-family: var(--font-heading); margin-bottom: var(--space-lg); word-break: break-all; }
+.redirect-bar-track { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; margin-bottom: var(--space-lg); }
+.redirect-bar { height: 100%; width: 0%; background: var(--weaver-lime); border-radius: 999px; transition: width linear; }
+.redirect-cancel { background: none; border: none; color: var(--mid-gray); font-size: 0.9rem; cursor: pointer; text-decoration: underline; padding: 0; }
+.redirect-cancel:hover { color: var(--weaver-dark); }
 
 /* Print Styles */
 @media print {
@@ -472,7 +517,17 @@ a { color: inherit; text-decoration: none; transition: var(--transition); }
 .cookie-content { grid-template-columns: 2fr 1fr; }
 .timeline-content { width: 45%; }
 }
-@media (min-width: 1024px) { .container { padding: 0 var(--space-xl); } }
+@media (min-width: 1024px) {
+.container { padding: 0 var(--space-xl); }
+.feature-grid { grid-template-columns: repeat(3, 1fr); }
+.benefits-grid { grid-template-columns: repeat(4, 1fr); }
+.districts-grid { grid-template-columns: repeat(5, 1fr); }
+.photo-grid { grid-template-columns: repeat(3, 1fr); }
+.voices-grid { grid-template-columns: repeat(2, 1fr); }
+.news-grid { grid-template-columns: repeat(3, 1fr); }
+.detail-grid { grid-template-columns: repeat(2, 1fr); }
+.contact-grid { grid-template-columns: repeat(3, 1fr); }
+}
 @media (max-width: 767px) {
 .hero-actions { flex-direction: column; width: 100%; }
 .btn { width: 100%; }
@@ -529,7 +584,7 @@ Weaver Network
         <span class="nav-dropdown-link" onclick="navigateTo('detail-accessibility')">Accessibility</span>
     </div>
 </li>
-<li><span class="nav-link" onclick="window.open('https://bustimes.org/areas/107', '_blank')">Bus Tracking</span></li>
+<li><span class="nav-link" onclick="externalRedirect('https://bustimes.org/areas/107', 'bustimes.org')">Bus Tracking</span></li>
 <li><span class="nav-link" onclick="navigateTo('detail-news')">News</span></li>
 <li><span class="nav-link" onclick="navigateTo('detail-contact')">Contact</span></li>
 <li><span class="nav-link" onclick="navigateTo('detail-get-involved')">Get Involved</span></li>
@@ -540,7 +595,7 @@ Weaver Network
 <button class="search-toggle" onclick="openSearch()" aria-label="Open search">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
 </button>
-<button class="btn btn-primary" onclick="window.open('https://bustimes.org/areas/107', '_blank')">Bus Tracking</button>
+<button class="btn btn-primary" onclick="externalRedirect('https://bustimes.org/areas/107', 'bustimes.org')">Bus Tracking</button>
 <button class="mobile-menu-btn" aria-label="Toggle mobile menu" onclick="toggleMobileMenu()">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
 </button>
@@ -577,7 +632,7 @@ Weaver Network
     <li><span class="mobile-nav-link" onclick="navigateTo('detail-accessibility'); toggleMobileMenu()">Accessibility</span></li>
     
     <li><span class="mobile-nav-link" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 1.5rem; display: block; text-transform: uppercase; letter-spacing: 0.05em; cursor: default; font-weight: 600;">Information</span></li>
-    <li><span class="mobile-nav-link" onclick="window.open('https://bustimes.org/areas/107', '_blank'); toggleMobileMenu()">Bus Tracking</span></li>
+    <li><span class="mobile-nav-link" onclick="externalRedirect('https://bustimes.org/areas/107', 'bustimes.org'); toggleMobileMenu()">Bus Tracking</span></li>
     <li><span class="mobile-nav-link" onclick="navigateTo('detail-news'); toggleMobileMenu()">News</span></li>
     <li><span class="mobile-nav-link" onclick="navigateTo('detail-contact'); toggleMobileMenu()">Contact Us</span></li>
     <li><span class="mobile-nav-link" onclick="navigateTo('detail-get-involved'); toggleMobileMenu()">Get Involved</span></li>
@@ -590,15 +645,6 @@ Weaver Network
 <section class="hero">
 <div class="hero-bg"></div>
 <div class="hero-overlay"></div>
-<svg class="hero-weave" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true">
-<defs>
-<pattern id="weavePattern" width="40" height="40" patternUnits="userSpaceOnUse">
-<path d="M0 10 H40 M0 30 H40" stroke="currentColor" stroke-width="2" fill="none"/>
-<path d="M10 0 V40 M30 0 V40" stroke="currentColor" stroke-width="2" fill="none" opacity="0.5"/>
-</pattern>
-</defs>
-<rect width="200" height="200" fill="url(#weavePattern)"/>
-</svg>
 <div class="container">
 <div class="hero-content">
 <div class="hero-badge animate-fade-in-up">
@@ -608,8 +654,8 @@ Franchised services arriving Spring 2027
 <h1 class="animate-fade-in-up delay-1">Your journeys.<br>Our promise.</h1>
 <p class="animate-fade-in-up delay-2">Welcome to the Weaver Network. We are stitching together buses, trains, trams, walking, wheeling, and cycling into one seamless, reliable transport system for West Yorkshire.</p>
 <div class="hero-actions animate-fade-in-up delay-3">
-<button class="btn btn-hero-primary" onclick="window.open('https://bustimes.org/areas/107', '_blank')">Plan a Journey</button>
-<button class="btn btn-hero-secondary" onclick="window.open('https://bustimes.org/map#5/54/-2.9', '_blank')">Explore Live Map</button>
+<button class="btn btn-hero-primary" onclick="externalRedirect('https://bustimes.org/areas/107', 'bustimes.org')">Plan a Journey</button>
+<button class="btn btn-hero-secondary" onclick="externalRedirect('https://bustimes.org/map#5/54/-2.9', 'bustimes.org')">Explore Live Map</button>
 </div>
 </div>
 </div>
@@ -639,7 +685,7 @@ Find Journeys
 <div class="container">
 <div class="mayor-grid">
 <div class="mayor-image reveal">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Official_portrait_of_Tracy_Brabin_MP_crop_2.jpg/500px-Official_portrait_of_Tracy_Brabin_MP_crop_2.jpg" alt="Mayor of West Yorkshire, Tracy Brabin">
+<img src="images/mayor-brabin.jpg" alt="Mayor of West Yorkshire, Tracy Brabin">
 </div>
 <div class="mayor-content reveal">
 <h2 style="color: var(--weaver-lime); font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: var(--space-md);">The Mayor's Promise</h2>
@@ -819,15 +865,6 @@ Find Journeys
 
 <!-- Districts Section -->
 <section class="districts-section">
-<svg class="weave-corner" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true">
-<defs>
-<pattern id="weavePatternLight" width="40" height="40" patternUnits="userSpaceOnUse">
-<path d="M0 10 H40 M0 30 H40" stroke="currentColor" stroke-width="2" fill="none"/>
-<path d="M10 0 V40 M30 0 V40" stroke="currentColor" stroke-width="2" fill="none" opacity="0.5"/>
-</pattern>
-</defs>
-<rect width="200" height="200" fill="url(#weavePatternLight)"/>
-</svg>
 <div class="container">
 <div class="section-header reveal">
 <h2>Woven Across West Yorkshire</h2>
@@ -880,7 +917,7 @@ Find Journeys
 <p>Stay informed with the latest from the Weaver Network.</p>
 </div>
 <div class="news-grid">
-<article class="news-card reveal" onclick="window.open('https://www.passengertransport.co.uk/2025/10/likely-bidders-revealed-for-weaver-network/', '_blank')">
+<article class="news-card reveal" onclick="externalRedirect('https://www.passengertransport.co.uk/2025/10/likely-bidders-revealed-for-weaver-network/', 'passengertransport.co.uk')">
 <div class="news-content">
 <div class="news-date">31 October 2025</div>
 <h3 class="news-title">Likely bidders revealed for Weaver Network</h3>
@@ -888,7 +925,7 @@ Find Journeys
 <span class="news-link">Read full story →</span>
 </div>
 </article>
-<article class="news-card reveal" onclick="window.open('https://www.yorkshirepost.co.uk/news/transport/new-images-of-west-yorkshires-first-weaver-network-branded-bus-station-revealed-5337202', '_blank')">
+<article class="news-card reveal" onclick="externalRedirect('https://www.yorkshirepost.co.uk/news/transport/new-images-of-west-yorkshires-first-weaver-network-branded-bus-station-revealed-5337202', 'yorkshirepost.co.uk')">
 <div class="news-content">
 <div class="news-date">29 September 2025</div>
 <h3 class="news-title">New images of West Yorkshire's first Weaver Network branded bus station revealed</h3>
@@ -896,7 +933,7 @@ Find Journeys
 <span class="news-link">Read more →</span>
 </div>
 </article>
-<article class="news-card reveal" onclick="window.open('https://www.westyorks-ca.gov.uk/news/weaver-network-will-offer-made-to-measure-public-transport-for-west-yorkshire', '_blank')">
+<article class="news-card reveal" onclick="externalRedirect('https://www.westyorks-ca.gov.uk/news/weaver-network-will-offer-made-to-measure-public-transport-for-west-yorkshire', 'westyorks-ca.gov.uk')">
 <div class="news-content">
 <div class="news-date">12 May 2025</div>
 <h3 class="news-title">Weaver Network will offer made to measure public transport for West Yorkshire</h3>
@@ -917,30 +954,30 @@ Find Journeys
 </div>
 <div class="voices-grid">
 <figure class="voice-card reveal">
-<blockquote>"For too long, our region has suffered from a disjointed, confusing, and increasingly hard to navigate public transport system. Our vision for an integrated Weaver Network, offering reliable and seamless travel whether people are travelling by bus, tram or train, includes facilities that are welcoming and accessible for all."</blockquote>
+<blockquote>For too long, our region has suffered from a disjointed, confusing, and increasingly hard to navigate public transport system. Our vision for an integrated Weaver Network, offering reliable and seamless travel whether people are travelling by bus, tram or train, includes facilities that are welcoming and accessible for all.</blockquote>
 <figcaption>
-<div class="voice-avatar" aria-hidden="true">TB</div>
+<img class="voice-avatar" src="images/avatar-brabin.jpg" alt="Tracy Brabin">
 <div class="voice-meta"><strong>Tracy Brabin</strong><span>Mayor of West Yorkshire</span></div>
 </figcaption>
 </figure>
 <figure class="voice-card reveal">
-<blockquote>"With the Mayor's decision to take back control of the bus network, we are now moving towards a fully integrated transport network under one brand."</blockquote>
+<blockquote>With the Mayor's decision to take back control of the bus network, we are now moving towards a fully integrated transport network under one brand.</blockquote>
 <figcaption>
-<div class="voice-avatar" aria-hidden="true">SH</div>
+<div class="voice-avatar-initials" aria-hidden="true">SH</div>
 <div class="voice-meta"><strong>Cllr Susan Hinchcliffe</strong><span>Chair, WYCA Transport Committee</span></div>
 </figcaption>
 </figure>
 <figure class="voice-card reveal">
-<blockquote>"This first new Weaver Network branded bus station gives confidence that bus franchising will soon make travelling from A to B by public transport a much more attractive, reliable and accessible option."</blockquote>
+<blockquote>This first new Weaver Network branded bus station gives confidence that bus franchising will soon make travelling from A to B by public transport a much more attractive, reliable and accessible option.</blockquote>
 <figcaption>
-<div class="voice-avatar" aria-hidden="true">MC</div>
+<div class="voice-avatar-initials" aria-hidden="true">MC</div>
 <div class="voice-meta"><strong>Cllr Moses Crook</strong><span>Deputy Leader, Kirklees Council</span></div>
 </figcaption>
 </figure>
 <figure class="voice-card reveal">
-<blockquote>"The children had a wonderful time on their recent visit to the Heckmondwike bus station, and it was a great opportunity to see the project first hand."</blockquote>
+<blockquote>The children had a wonderful time on their recent visit to the Heckmondwike bus station, and it was a great opportunity to see the project first hand.</blockquote>
 <figcaption>
-<div class="voice-avatar" aria-hidden="true">CB</div>
+<div class="voice-avatar-initials" aria-hidden="true">CB</div>
 <div class="voice-meta"><strong>Claire Bass</strong><span>Headteacher, Holy Spirit Catholic Primary Academy</span></div>
 </figcaption>
 </figure>
@@ -1282,12 +1319,12 @@ Find Journeys
 <div class="detail-item"><h3>Iconic Yorkshire Art</h3><p>The distinctive patterns echo the work of David Hockney, Barbara Hepworth, and Henry Moore.</p></div>
 </div></div>
 <div class="detail-section"><h2>Where We Operate</h2><div class="photo-grid">
-<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Leeds_CBD_at_night.jpg/960px-Leeds_CBD_at_night.jpg" alt="Leeds city centre skyline at night" loading="lazy"><figcaption><h3>Leeds</h3><p>The region's largest city and economic hub.</p></figcaption></figure>
-<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Bradford_City_Hall_-_geograph.org.uk_-_5891030_%28cropped%29.jpg" alt="Bradford City Hall" loading="lazy"><figcaption><h3>Bradford</h3><p>Home to a diverse population and rich cultural heritage.</p></figcaption></figure>
-<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Huddersfield_Station.jpg/960px-Huddersfield_Station.jpg" alt="Huddersfield railway station" loading="lazy"><figcaption><h3>Huddersfield</h3><p>A historic market town with excellent transport links.</p></figcaption></figure>
-<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/WakefieldCathedral-1.jpg/960px-WakefieldCathedral-1.jpg" alt="Wakefield Cathedral" loading="lazy"><figcaption><h3>Wakefield</h3><p>The cathedral city with strong connections to Leeds.</p></figcaption></figure>
-<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Dewsbury_Town_Hall%2C_2018.jpg/960px-Dewsbury_Town_Hall%2C_2018.jpg" alt="Dewsbury Town Hall" loading="lazy"><figcaption><h3>Kirklees</h3><p>Encompassing Huddersfield, Dewsbury, and surrounding towns.</p></figcaption></figure>
-<figure class="photo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Halifax_skyline_%282895335451%29.jpg/960px-Halifax_skyline_%282895335451%29.jpg" alt="Halifax skyline" loading="lazy"><figcaption><h3>Calderdale</h3><p>From Halifax to Hebden Bridge, connecting urban and rural communities.</p></figcaption></figure>
+<figure class="photo-item"><img src="images/leeds.jpg" alt="Leeds city centre skyline at night" loading="lazy"><figcaption><h3>Leeds</h3><p>The region's largest city and economic hub.</p></figcaption></figure>
+<figure class="photo-item"><img src="images/bradford.jpg" alt="Bradford City Hall" loading="lazy"><figcaption><h3>Bradford</h3><p>Home to a diverse population and rich cultural heritage.</p></figcaption></figure>
+<figure class="photo-item"><img src="images/huddersfield.jpg" alt="Huddersfield railway station" loading="lazy"><figcaption><h3>Huddersfield</h3><p>A historic market town with excellent transport links.</p></figcaption></figure>
+<figure class="photo-item"><img src="images/wakefield.jpg" alt="Wakefield Cathedral" loading="lazy"><figcaption><h3>Wakefield</h3><p>The cathedral city with strong connections to Leeds.</p></figcaption></figure>
+<figure class="photo-item"><img src="images/dewsbury.jpg" alt="Dewsbury Town Hall" loading="lazy"><figcaption><h3>Kirklees</h3><p>Encompassing Huddersfield, Dewsbury, and surrounding towns.</p></figcaption></figure>
+<figure class="photo-item"><img src="images/halifax.jpg" alt="Halifax skyline" loading="lazy"><figcaption><h3>Calderdale</h3><p>From Halifax to Hebden Bridge, connecting urban and rural communities.</p></figcaption></figure>
 </div></div>
 </div></div>
 </div>
@@ -1390,7 +1427,7 @@ Find Journeys
 </ol>
 </nav>
 <div class="news-grid">
-<article class="news-card" onclick="window.open('https://www.bbc.co.uk/news/articles/c9wgrvk8zwdo', '_blank')">
+<article class="news-card" onclick="externalRedirect('https://www.bbc.co.uk/news/articles/c9wgrvk8zwdo', 'bbc.co.uk')">
 <div class="news-content">
 <div class="news-date">15 January 2026</div>
 <h3 class="news-title">Weaver Network unveiled as 'new era' for West Yorkshire public transport</h3>
@@ -1398,7 +1435,7 @@ Find Journeys
 <span class="news-link">Read full story on BBC News →</span>
 </div>
 </article>
-<article class="news-card" onclick="window.open('https://www.bbc.co.uk/news/articles/czd2eygne92o', '_blank')">
+<article class="news-card" onclick="externalRedirect('https://www.bbc.co.uk/news/articles/czd2eygne92o', 'bbc.co.uk')">
 <div class="news-content">
 <div class="news-date">10 January 2026</div>
 <h3 class="news-title">Bus franchising plans for West Yorkshire revealed</h3>
@@ -1406,7 +1443,7 @@ Find Journeys
 <span class="news-link">Read more →</span>
 </div>
 </article>
-<article class="news-card" onclick="window.open('https://www.placeyorkshire.co.uk/work-underway-at-huddersfield-bus-station/', '_blank')">
+<article class="news-card" onclick="externalRedirect('https://www.placeyorkshire.co.uk/work-underway-at-huddersfield-bus-station/', 'placeyorkshire.co.uk')">
 <div class="news-content">
 <div class="news-date">5 January 2026</div>
 <h3 class="news-title">Work underway at Huddersfield bus station</h3>
@@ -1476,14 +1513,66 @@ Find Journeys
 <div class="detail-section"><h2>Governing Law</h2><p>These terms shall be governed by and construed in accordance with the laws of England and Wales. Any disputes arising under these terms shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p><p><strong>Last updated:</strong> 8 June 2026</p></div>
 </div></div>
 </div>
+
+<!-- VIEW: Cookie Policy -->
+<div id="view-detail-cookies" class="page-view">
+<div class="detail-hero"><div class="container"><h1>Cookie Policy</h1><p>How we use cookies and similar technologies on the Weaver Network website.</p></div></div>
+<div class="detail-content"><div class="container accessibility-content">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<ol>
+<li><a href="#" onclick="navigateTo('home'); return false;">Home</a></li>
+<li aria-current="page">Cookie Policy</li>
+</ol>
+</nav>
+<div class="detail-section"><h2>What Are Cookies?</h2><p>Cookies are small text files placed on your device when you visit a website. They are widely used to make websites work more efficiently and to provide information to website owners. Cookies do not contain any personally identifiable information on their own.</p></div>
+<div class="detail-section"><h2>How We Use Cookies</h2><p>The Weaver Network website uses cookies to:</p><ul><li>Remember your preferences and settings (such as your cookie consent choice)</li><li>Understand how visitors use our website so we can improve it</li><li>Ensure the website functions correctly</li><li>Provide a consistent experience across your visits</li></ul></div>
+<div class="detail-section"><h2>Types of Cookies We Use</h2>
+<h3>Strictly Necessary Cookies</h3>
+<p>These cookies are essential for the website to function. Without them, services you have asked for cannot be provided. They cannot be switched off in our systems.</p>
+<table style="width:100%;border-collapse:collapse;margin-top:var(--space-sm);">
+<thead><tr style="background:var(--pale-green);"><th style="padding:0.75rem;text-align:left;border:1px solid var(--border);">Cookie name</th><th style="padding:0.75rem;text-align:left;border:1px solid var(--border);">Purpose</th><th style="padding:0.75rem;text-align:left;border:1px solid var(--border);">Expires</th></tr></thead>
+<tbody>
+<tr><td style="padding:0.75rem;border:1px solid var(--border);"><code>weaverCookieConsent</code></td><td style="padding:0.75rem;border:1px solid var(--border);">Stores your cookie consent choice so we don't ask again</td><td style="padding:0.75rem;border:1px solid var(--border);">1 year</td></tr>
+<tr><td style="padding:0.75rem;border:1px solid var(--border);"><code>weaverCookiePrefs</code></td><td style="padding:0.75rem;border:1px solid var(--border);">Stores your detailed cookie preferences (e.g. analytics on/off)</td><td style="padding:0.75rem;border:1px solid var(--border);">1 year</td></tr>
+</tbody>
+</table>
+<h3 style="margin-top:var(--space-lg);">Analytics Cookies</h3>
+<p>These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously. Enabling them helps us improve the site for everyone.</p>
+<table style="width:100%;border-collapse:collapse;margin-top:var(--space-sm);">
+<thead><tr style="background:var(--pale-green);"><th style="padding:0.75rem;text-align:left;border:1px solid var(--border);">Cookie name</th><th style="padding:0.75rem;text-align:left;border:1px solid var(--border);">Purpose</th><th style="padding:0.75rem;text-align:left;border:1px solid var(--border);">Expires</th></tr></thead>
+<tbody>
+<tr><td style="padding:0.75rem;border:1px solid var(--border);"><code>_ga</code></td><td style="padding:0.75rem;border:1px solid var(--border);">Google Analytics — distinguishes unique users</td><td style="padding:0.75rem;border:1px solid var(--border);">2 years</td></tr>
+<tr><td style="padding:0.75rem;border:1px solid var(--border);"><code>_ga_*</code></td><td style="padding:0.75rem;border:1px solid var(--border);">Google Analytics — maintains session state</td><td style="padding:0.75rem;border:1px solid var(--border);">2 years</td></tr>
+</tbody>
+</table>
+</div>
+<div class="detail-section"><h2>Managing Your Cookie Preferences</h2><p>You can change your cookie preferences at any time by clicking the <strong>Settings</strong> button on the cookie banner, or by clicking the button below.</p><p style="margin-top:var(--space-md);"><button class="btn btn-primary" onclick="openCookieSettings()">Open cookie settings</button></p><p style="margin-top:var(--space-md);">You can also control cookies through your browser settings. Most browsers allow you to refuse cookies, delete existing cookies, or receive a warning before a cookie is placed. Please refer to your browser's help documentation for instructions:</p><ul><li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li><li><a href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer" target="_blank" rel="noopener">Mozilla Firefox</a></li><li><a href="https://support.apple.com/en-gb/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Apple Safari</a></li><li><a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener">Microsoft Edge</a></li></ul><p style="margin-top:var(--space-md);">Please note that restricting cookies may affect the functionality of this website.</p></div>
+<div class="detail-section"><h2>Third-Party Cookies</h2><p>Some features of this website may use third-party services that set their own cookies. These include:</p><ul><li><strong>Google Maps</strong> — used by the journey planner to display route information. Google's cookie policy applies: <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener">policies.google.com/technologies/cookies</a></li><li><strong>Google Fonts</strong> — used to load typography. Google may set performance-related cookies.</li></ul><p>We do not control these third-party cookies. Please refer to the relevant third-party privacy and cookie policies for more information.</p></div>
+<div class="detail-section"><h2>Changes to This Policy</h2><p>We may update this cookie policy from time to time to reflect changes in the cookies we use or for other operational, legal, or regulatory reasons. Please revisit this page regularly to stay informed about our use of cookies.</p></div>
+<div class="detail-section"><h2>Contact Us</h2><p>If you have any questions about our use of cookies, please contact us at <a href="mailto:digital@westyorks-ca.gov.uk">digital@westyorks-ca.gov.uk</a> or write to: Weaver Network, 11 Bond Street, Leeds, LS1 5BQ.</p><p><strong>Last updated:</strong> 16 June 2026</p></div>
+</div></div>
+</div>
 </main>
+
+<!-- External Redirect Modal -->
+<div class="redirect-backdrop" id="redirectBackdrop" role="dialog" aria-modal="true" aria-label="Redirecting to external website">
+<div class="redirect-modal">
+<div class="redirect-icon">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+</div>
+<p class="redirect-label">Redirecting you to</p>
+<p class="redirect-site" id="redirectSiteName"></p>
+<div class="redirect-bar-track"><div class="redirect-bar" id="redirectBar"></div></div>
+<button class="redirect-cancel" onclick="cancelRedirect()">Cancel</button>
+</div>
+</div>
 
 <!-- Consultation Banner -->
 <section class="consultation-banner">
 <div class="container">
 <h2>Help Shape the Future of Transport</h2>
 <p>Everyone living or working in West Yorkshire is invited to help shape the Local Transport Plan. Share your views on the transport improvements that matter most to you.</p>
-<button class="btn btn-consultation" onclick="window.open('https://www.westyorks-ca.gov.uk/transport/local-transport-plan/', '_blank')">Join the Consultation →</button>
+<button class="btn btn-consultation" onclick="externalRedirect('https://www.westyorks-ca.gov.uk/transport/local-transport-plan/', 'westyorks-ca.gov.uk')">Join the Consultation →</button>
 </div>
 </section>
 
@@ -1496,12 +1585,16 @@ Find Journeys
 Weaver Network
 </div>
 <p>Delivering the Mayor of West Yorkshire's Local Transport Plan. Your journeys, our promise.</p>
+<div class="footer-social" aria-label="Follow Weaver Network on social media">
+<a href="https://twitter.com/WestYorksCA" target="_blank" rel="noopener" aria-label="Follow us on X (Twitter)" class="footer-social-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+<a href="https://facebook.com/WestYorkshireCombinedAuthority" target="_blank" rel="noopener" aria-label="Follow us on Facebook" class="footer-social-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54v-2.891h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.891h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/></svg></a>
+</div>
 </div>
 <div class="footer-col">
 <h4>Travel</h4>
 <ul>
-<li><a href="#" onclick="window.open('https://bustimes.org/areas/107', '_blank'); return false;">Plan a Journey</a></li>
-<li><a href="#" onclick="window.open('https://bustimes.org/areas/107', '_blank'); return false;">Bus Tracking</a></li>
+<li><a href="#" onclick="externalRedirect('https://bustimes.org/areas/107', 'bustimes.org'); return false;">Plan a Journey</a></li>
+<li><a href="#" onclick="externalRedirect('https://bustimes.org/areas/107', 'bustimes.org'); return false;">Bus Tracking</a></li>
 <li><a href="#" onclick="navigateTo('detail-ticketing'); return false;">Tickets & Fares</a></li>
 <li><a href="#" onclick="navigateTo('detail-accessibility'); return false;">Accessibility</a></li>
 </ul>
@@ -1532,7 +1625,8 @@ Weaver Network
 <p>&copy; 2026 West Yorkshire Combined Authority. All rights reserved.</p>
 <div>
 <a href="#" onclick="navigateTo('detail-privacy'); return false;" style="color: rgba(255,255,255,0.6); margin-right: 1rem;">Privacy Policy</a>
-<a href="#" onclick="navigateTo('detail-terms'); return false;" style="color: rgba(255,255,255,0.6);">Terms of Use</a>
+<a href="#" onclick="navigateTo('detail-terms'); return false;" style="color: rgba(255,255,255,0.6); margin-right: 1rem;">Terms of Use</a>
+<a href="#" onclick="navigateTo('detail-cookies'); return false;" style="color: rgba(255,255,255,0.6);">Cookie Policy</a>
 </div>
 </div>
 </div>
@@ -1542,12 +1636,43 @@ Weaver Network
 <div class="cookie-content">
 <div class="cookie-text">
 <h3>We use cookies on this website</h3>
-<p>We use cookies to make this website work, analyse traffic, and improve your experience. By continuing to use this site, you agree to our use of cookies. Read our <a href="#" onclick="navigateTo('detail-privacy'); return false;">cookie policy</a> for more information.</p>
+<p>We use cookies to make this website work, analyse traffic, and improve your experience. By continuing to use this site, you agree to our use of cookies. Read our <a href="#" onclick="navigateTo('detail-cookies'); return false;">cookie policy</a> for more information.</p>
 </div>
 <div class="cookie-actions">
 <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accept all</button>
 <button class="cookie-btn cookie-reject" onclick="rejectCookies()">Reject non-essential</button>
 <button class="cookie-btn cookie-settings" onclick="openCookieSettings()">Settings</button>
+</div>
+</div>
+</div>
+
+<div class="cookie-modal-backdrop" id="cookieModalBackdrop" role="dialog" aria-modal="true" aria-label="Cookie settings">
+<div class="cookie-modal">
+<h3>Cookie settings</h3>
+<p>Choose which categories of cookies you're happy for us to use. You can change these settings at any time.</p>
+<div class="cookie-modal-option">
+<div class="cookie-modal-option-text">
+<h4>Strictly necessary</h4>
+<p>Required for the website to function, such as remembering your cookie preferences. These cannot be switched off.</p>
+</div>
+<label class="cookie-toggle cookie-toggle-disabled">
+<input type="checkbox" checked disabled>
+<span class="cookie-toggle-track"><span class="cookie-toggle-thumb"></span></span>
+</label>
+</div>
+<div class="cookie-modal-option">
+<div class="cookie-modal-option-text">
+<h4>Analytics</h4>
+<p>Helps us understand how visitors use the site so we can improve it. Data is anonymised.</p>
+</div>
+<label class="cookie-toggle">
+<input type="checkbox" id="cookiePrefAnalytics">
+<span class="cookie-toggle-track"><span class="cookie-toggle-thumb"></span></span>
+</label>
+</div>
+<div class="cookie-modal-actions">
+<button class="cookie-btn cookie-reject" onclick="closeCookieSettings()">Cancel</button>
+<button class="cookie-btn cookie-accept" onclick="saveCookiePreferences()">Save preferences</button>
 </div>
 </div>
 </div>
@@ -1558,36 +1683,124 @@ Weaver Network
 
 <script>
 const searchData = [
-  { title: 'Bradford Interchange', type: 'Station', action: () => navigateTo('detail-rail-integration') },
-  { title: 'Leeds Station', type: 'Station', action: () => navigateTo('detail-rail-integration') },
-  { title: 'Huddersfield Station', type: 'Station', action: () => navigateTo('detail-rail-integration') },
-  { title: 'Wakefield Westgate', type: 'Station', action: () => navigateTo('detail-rail-integration') },
-  { title: 'Heckmondwike Bus Station', type: 'Station', action: () => navigateTo('detail-franchised-buses') },
-  { title: 'Tickets and fares', type: 'Info', action: () => navigateTo('detail-ticketing') },
-  { title: 'MCard', type: 'Info', action: () => navigateTo('detail-ticketing') },
-  { title: 'Contactless', type: 'Info', action: () => navigateTo('detail-ticketing') },
-  { title: 'Accessibility', type: 'Info', action: () => navigateTo('detail-accessibility') },
-  { title: 'Bus franchising', type: 'Info', action: () => navigateTo('detail-franchised-buses') },
-  { title: 'Mass transit', type: 'Info', action: () => navigateTo('detail-mass-transit') },
-  { title: 'Trams', type: 'Info', action: () => navigateTo('detail-mass-transit') },
-  { title: 'Lost property', type: 'Info', action: () => navigateTo('detail-contact') },
-  { title: 'Bus Tracking', type: 'Service', action: () => window.open('https://bustimes.org/areas/107', '_blank') },
-  { title: 'Contact Us', type: 'Info', action: () => navigateTo('detail-contact') },
-  { title: 'Heritage', type: 'Info', action: () => navigateTo('detail-heritage') },
-  { title: 'Simon Armitage', type: 'Info', action: () => navigateTo('detail-heritage') },
-  { title: 'Walking & Wheeling', type: 'Info', action: () => navigateTo('detail-walking-wheeling') },
-  { title: 'Cycling', type: 'Info', action: () => navigateTo('detail-cycling') },
-  { title: 'EV Charging', type: 'Info', action: () => navigateTo('detail-ev-charging') },
-  { title: 'Electric vehicles', type: 'Info', action: () => navigateTo('detail-ev-charging') },
-  { title: 'News', type: 'Info', action: () => navigateTo('detail-news') },
-  { title: 'Privacy Policy', type: 'Info', action: () => navigateTo('detail-privacy') },
-  { title: 'Terms of Use', type: 'Info', action: () => navigateTo('detail-terms') },
-  { title: 'Get Involved', type: 'Info', action: () => navigateTo('detail-get-involved') },
-  { title: 'Consultation', type: 'Info', action: () => navigateTo('detail-get-involved') },
-  { title: 'Local Transport Plan', type: 'Info', action: () => navigateTo('detail-transport-plan') },
-  { title: 'Net zero 2038', type: 'Info', action: () => navigateTo('detail-transport-plan') },
-  { title: 'Mayor Tracy Brabin', type: 'Info', action: () => navigateTo('home') },
-  { title: 'WYMetro retirement', type: 'Info', action: () => navigateTo('home') }
+  // Stations & stops
+  { title: 'Bradford Interchange', type: 'Station', keywords: ['bradford', 'interchange', 'bus station', 'train'], action: () => navigateTo('detail-rail-integration') },
+  { title: 'Leeds Station', type: 'Station', keywords: ['leeds', 'train', 'rail', 'city station'], action: () => navigateTo('detail-rail-integration') },
+  { title: 'Huddersfield Station', type: 'Station', keywords: ['huddersfield', 'train', 'rail'], action: () => navigateTo('detail-rail-integration') },
+  { title: 'Wakefield Westgate', type: 'Station', keywords: ['wakefield', 'train', 'rail', 'westgate'], action: () => navigateTo('detail-rail-integration') },
+  { title: 'Wakefield Kirkgate', type: 'Station', keywords: ['wakefield', 'kirkgate', 'train'], action: () => navigateTo('detail-rail-integration') },
+  { title: 'Halifax Station', type: 'Station', keywords: ['halifax', 'calderdale', 'train'], action: () => navigateTo('detail-rail-integration') },
+  { title: 'Dewsbury Station', type: 'Station', keywords: ['dewsbury', 'kirklees', 'train'], action: () => navigateTo('detail-rail-integration') },
+  { title: 'Heckmondwike Bus Station', type: 'Station', keywords: ['heckmondwike', 'bus station', 'kirklees', 'new'], action: () => navigateTo('detail-franchised-buses') },
+  { title: 'Keighley Bus Station', type: 'Station', keywords: ['keighley', 'bradford', 'bus'], action: () => navigateTo('detail-franchised-buses') },
+
+  // Buses
+  { title: 'Bus franchising', type: 'Buses', keywords: ['franchise', 'buses', 'public transport', 'routes'], action: () => navigateTo('detail-franchised-buses') },
+  { title: 'Bus routes', type: 'Buses', keywords: ['routes', 'timetable', 'schedule', 'service'], action: () => navigateTo('detail-franchised-buses') },
+  { title: 'Bus timetables', type: 'Buses', keywords: ['timetable', 'times', 'schedule', 'when'], action: () => navigateTo('detail-franchised-buses') },
+  { title: 'Bus Tracking', type: 'Service', keywords: ['live', 'real time', 'track', 'where is my bus'], action: () => externalRedirect('https://bustimes.org/areas/107', 'bustimes.org') },
+  { title: 'Night buses', type: 'Buses', keywords: ['night', 'late', 'evening', 'after midnight'], action: () => navigateTo('detail-franchised-buses') },
+  { title: 'School buses', type: 'Buses', keywords: ['school', 'children', 'kids', 'education'], action: () => navigateTo('detail-franchised-buses') },
+
+  // Rail
+  { title: 'Rail integration', type: 'Rail', keywords: ['trains', 'rail', 'northern', 'tpx', 'transpennine'], action: () => navigateTo('detail-rail-integration') },
+  { title: 'Train times', type: 'Rail', keywords: ['train', 'timetable', 'times', 'schedule'], action: () => navigateTo('detail-rail-integration') },
+  { title: 'Northern trains', type: 'Rail', keywords: ['northern', 'train', 'operator'], action: () => navigateTo('detail-rail-integration') },
+  { title: 'TransPennine Express', type: 'Rail', keywords: ['transpennine', 'tpx', 'intercity', 'express'], action: () => navigateTo('detail-rail-integration') },
+
+  // Mass transit / trams
+  { title: 'Mass transit', type: 'Trams', keywords: ['tram', 'light rail', 'metro', 'underground'], action: () => navigateTo('detail-mass-transit') },
+  { title: 'Trams', type: 'Trams', keywords: ['tram', 'supertram', 'light rail', 'mass transit'], action: () => navigateTo('detail-mass-transit') },
+  { title: 'West Yorkshire Metro', type: 'Trams', keywords: ['metro', 'wymetro', 'tram', 'light rail'], action: () => navigateTo('detail-mass-transit') },
+
+  // Ticketing
+  { title: 'Tickets and fares', type: 'Ticketing', keywords: ['ticket', 'fare', 'price', 'cost', 'pay', 'buy'], action: () => navigateTo('detail-ticketing') },
+  { title: 'MCard', type: 'Ticketing', keywords: ['mcard', 'smartcard', 'card', 'app', 'travel card'], action: () => navigateTo('detail-ticketing') },
+  { title: 'Contactless payment', type: 'Ticketing', keywords: ['contactless', 'tap', 'pay as you go', 'bank card', 'apple pay'], action: () => navigateTo('detail-ticketing') },
+  { title: 'Day ticket', type: 'Ticketing', keywords: ['day', 'unlimited', 'all day', 'saver'], action: () => navigateTo('detail-ticketing') },
+  { title: 'Weekly ticket', type: 'Ticketing', keywords: ['weekly', 'week', 'season ticket', 'commuter'], action: () => navigateTo('detail-ticketing') },
+  { title: 'Monthly ticket', type: 'Ticketing', keywords: ['monthly', 'month', 'season ticket', 'commuter'], action: () => navigateTo('detail-ticketing') },
+  { title: 'Concessionary travel', type: 'Ticketing', keywords: ['concession', 'free', 'senior', 'pensioner', 'older person', 'bus pass', 'disabled'], action: () => navigateTo('detail-ticketing') },
+  { title: 'Student discount', type: 'Ticketing', keywords: ['student', 'university', 'college', 'young person', 'youth', '16-25'], action: () => navigateTo('detail-ticketing') },
+  { title: 'Child fares', type: 'Ticketing', keywords: ['child', 'children', 'kids', 'under 16', 'family'], action: () => navigateTo('detail-ticketing') },
+  { title: 'Group travel', type: 'Ticketing', keywords: ['group', 'family', 'multiple', 'together'], action: () => navigateTo('detail-ticketing') },
+
+  // Accessibility
+  { title: 'Accessibility', type: 'Accessibility', keywords: ['accessible', 'disability', 'disabled', 'wheelchair', 'ramp', 'step free'], action: () => navigateTo('detail-accessibility') },
+  { title: 'Wheelchair access', type: 'Accessibility', keywords: ['wheelchair', 'mobility', 'step free', 'ramp', 'level access'], action: () => navigateTo('detail-accessibility') },
+  { title: 'Visual impairment', type: 'Accessibility', keywords: ['visual', 'blind', 'sight', 'audio', 'announcements'], action: () => navigateTo('detail-accessibility') },
+  { title: 'Accessibility Statement', type: 'Info', keywords: ['wcag', 'web accessibility', 'statement'], action: () => navigateTo('detail-accessibility-statement') },
+
+  // Cycling
+  { title: 'Cycling', type: 'Cycling', keywords: ['bike', 'bicycle', 'cycle', 'cycling', 'pedal'], action: () => navigateTo('detail-cycling') },
+  { title: 'Cycle hire', type: 'Cycling', keywords: ['hire', 'rent', 'e-bike', 'bike share', 'borrow'], action: () => navigateTo('detail-cycling') },
+  { title: 'E-bikes', type: 'Cycling', keywords: ['electric bike', 'e-bike', 'ebike', 'electric bicycle'], action: () => navigateTo('detail-cycling') },
+  { title: 'Cycle lanes', type: 'Cycling', keywords: ['lane', 'path', 'route', 'safe cycling', 'infrastructure'], action: () => navigateTo('detail-cycling') },
+  { title: 'Bike storage', type: 'Cycling', keywords: ['storage', 'parking', 'secure', 'locker', 'bike park'], action: () => navigateTo('detail-cycling') },
+
+  // Walking & Wheeling
+  { title: 'Walking & Wheeling', type: 'Walking', keywords: ['walk', 'walking', 'pedestrian', 'scooter', 'wheelchair', 'wheel'], action: () => navigateTo('detail-walking-wheeling') },
+  { title: 'Walking routes', type: 'Walking', keywords: ['route', 'path', 'footpath', 'pavement', 'pedestrian'], action: () => navigateTo('detail-walking-wheeling') },
+  { title: 'E-scooters', type: 'Walking', keywords: ['scooter', 'e-scooter', 'electric scooter'], action: () => navigateTo('detail-walking-wheeling') },
+
+  // EV Charging
+  { title: 'EV Charging', type: 'EV', keywords: ['electric', 'ev', 'charge', 'charging point', 'plug in'], action: () => navigateTo('detail-ev-charging') },
+  { title: 'Electric vehicles', type: 'EV', keywords: ['electric car', 'ev', 'zero emission', 'plug in', 'battery'], action: () => navigateTo('detail-ev-charging') },
+  { title: 'Charging points', type: 'EV', keywords: ['charger', 'charge point', 'rapid charging', 'ev hub'], action: () => navigateTo('detail-ev-charging') },
+
+  // Districts
+  { title: 'Leeds', type: 'District', keywords: ['leeds', 'city', 'ls', 'city centre'], action: () => navigateTo('detail-heritage') },
+  { title: 'Bradford', type: 'District', keywords: ['bradford', 'bd', 'city of culture'], action: () => navigateTo('detail-heritage') },
+  { title: 'Huddersfield', type: 'District', keywords: ['huddersfield', 'kirklees', 'hd'], action: () => navigateTo('detail-heritage') },
+  { title: 'Wakefield', type: 'District', keywords: ['wakefield', 'wf', 'cathedral'], action: () => navigateTo('detail-heritage') },
+  { title: 'Calderdale', type: 'District', keywords: ['calderdale', 'halifax', 'hebden bridge', 'todmorden'], action: () => navigateTo('detail-heritage') },
+  { title: 'Kirklees', type: 'District', keywords: ['kirklees', 'dewsbury', 'batley', 'heckmondwike', 'huddersfield'], action: () => navigateTo('detail-heritage') },
+  { title: 'Halifax', type: 'District', keywords: ['halifax', 'calderdale', 'hx'], action: () => navigateTo('detail-heritage') },
+  { title: 'Dewsbury', type: 'District', keywords: ['dewsbury', 'kirklees', 'wf12'], action: () => navigateTo('detail-heritage') },
+  { title: 'Keighley', type: 'District', keywords: ['keighley', 'bradford', 'bd21'], action: () => navigateTo('detail-heritage') },
+
+  // Contact
+  { title: 'Contact Us', type: 'Contact', keywords: ['contact', 'get in touch', 'phone', 'email', 'help', 'support'], action: () => navigateTo('detail-contact') },
+  { title: 'Lost property', type: 'Contact', keywords: ['lost', 'found', 'left behind', 'property'], action: () => navigateTo('detail-contact') },
+  { title: 'Make a complaint', type: 'Contact', keywords: ['complaint', 'complain', 'problem', 'issue', 'unhappy'], action: () => navigateTo('detail-contact') },
+  { title: 'Media enquiries', type: 'Contact', keywords: ['press', 'media', 'journalist', 'pr', 'news enquiry'], action: () => navigateTo('detail-contact') },
+  { title: 'Report a problem', type: 'Contact', keywords: ['report', 'problem', 'broken', 'fault', 'issue'], action: () => navigateTo('detail-contact') },
+
+  // Transport Plan & Environment
+  { title: 'Local Transport Plan', type: 'Policy', keywords: ['ltp', 'transport plan', 'strategy', 'vision', 'policy'], action: () => navigateTo('detail-transport-plan') },
+  { title: 'Net zero 2038', type: 'Policy', keywords: ['net zero', 'carbon', 'climate', 'green', 'environment', 'emissions', '2038'], action: () => navigateTo('detail-transport-plan') },
+  { title: 'Zero emission buses', type: 'Policy', keywords: ['electric bus', 'zero emission', 'hydrogen', 'green bus', 'ev bus'], action: () => navigateTo('detail-transport-plan') },
+  { title: 'Air quality', type: 'Policy', keywords: ['air quality', 'pollution', 'clean air', 'emissions', 'environment'], action: () => navigateTo('detail-transport-plan') },
+
+  // Get Involved
+  { title: 'Get Involved', type: 'Consultation', keywords: ['have your say', 'feedback', 'respond', 'survey', 'opinion'], action: () => navigateTo('detail-get-involved') },
+  { title: 'Consultation', type: 'Consultation', keywords: ['consult', 'feedback', 'survey', 'respond', 'comment'], action: () => navigateTo('detail-get-involved') },
+  { title: 'Volunteer', type: 'Consultation', keywords: ['volunteer', 'community', 'help', 'participate'], action: () => navigateTo('detail-get-involved') },
+
+  // Heritage
+  { title: 'Our Heritage', type: 'Heritage', keywords: ['history', 'heritage', 'industrial', 'textile', 'mills', 'past'], action: () => navigateTo('detail-heritage') },
+  { title: 'Simon Armitage', type: 'Heritage', keywords: ['armitage', 'poet', 'laureate', 'poetry', 'weave'], action: () => navigateTo('detail-heritage') },
+  { title: 'David Hockney', type: 'Heritage', keywords: ['hockney', 'art', 'yorkshire', 'artist'], action: () => navigateTo('detail-heritage') },
+  { title: 'Barbara Hepworth', type: 'Heritage', keywords: ['hepworth', 'sculpture', 'art', 'wakefield'], action: () => navigateTo('detail-heritage') },
+
+  // News
+  { title: 'News', type: 'News', keywords: ['news', 'latest', 'update', 'announcement', 'press release'], action: () => navigateTo('detail-news') },
+  { title: 'Bus operator bidders', type: 'News', keywords: ['bidder', 'operator', 'franchise', 'tender', 'arriva', 'first'], action: () => navigateTo('detail-news') },
+  { title: 'Heckmondwike bus station opening', type: 'News', keywords: ['heckmondwike', 'new', 'open', 'bus station', 'launch'], action: () => navigateTo('detail-news') },
+
+  // Legal / Info
+  { title: 'Privacy Policy', type: 'Legal', keywords: ['privacy', 'data', 'gdpr', 'personal information', 'cookies'], action: () => navigateTo('detail-privacy') },
+  { title: 'Terms of Use', type: 'Legal', keywords: ['terms', 'conditions', 'legal', 'rules'], action: () => navigateTo('detail-terms') },
+  { title: 'Cookie Policy', type: 'Legal', keywords: ['cookies', 'tracking', 'analytics', 'cookie settings', 'gdpr'], action: () => navigateTo('detail-cookies') },
+
+  // People / Organisation
+  { title: 'Mayor Tracy Brabin', type: 'People', keywords: ['mayor', 'brabin', 'tracy', 'west yorkshire mayor', 'wyca'], action: () => navigateTo('home') },
+  { title: 'West Yorkshire Combined Authority', type: 'People', keywords: ['wyca', 'combined authority', 'council', 'government', 'authority'], action: () => navigateTo('home') },
+  { title: 'WYMetro', type: 'People', keywords: ['wymetro', 'metro', 'old brand', 'previous', 'rebrand'], action: () => navigateTo('home') },
+
+  // Journey planning
+  { title: 'Plan a journey', type: 'Service', keywords: ['plan', 'journey', 'route', 'directions', 'how to get', 'travel from', 'travel to'], action: () => externalRedirect('https://bustimes.org/areas/107', 'bustimes.org') },
+  { title: 'Live departures', type: 'Service', keywords: ['live', 'departures', 'next bus', 'next train', 'real time'], action: () => externalRedirect('https://bustimes.org/areas/107', 'bustimes.org') },
 ];
 
 function planJourney(event) {
@@ -1597,30 +1810,47 @@ function planJourney(event) {
   if (!from || !to) return false;
   const origin = encodeURIComponent(from + ', West Yorkshire, UK');
   const destination = encodeURIComponent(to + ', West Yorkshire, UK');
-  window.open(`https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=transit`, '_blank');
+  externalRedirect(`https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=transit`, 'Google Maps');
   return false;
 }
 
-function navigateTo(view) {
+function navigateTo(view, updateHistory = true) {
+  if (!document.getElementById(`view-${view}`)) view = 'home';
+
   document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-  
+
   const targetView = document.getElementById(`view-${view}`);
   if (targetView) {
     targetView.classList.add('active');
   }
-  
+
   const navLinks = document.querySelectorAll('.nav-link');
   if (view === 'home' && navLinks[0]) navLinks[0].classList.add('active');
-  
+
+  if (updateHistory) {
+    const newHash = view === 'home' ? '#' : `#${view}`;
+    if (location.hash !== newHash) {
+      history.pushState({ view }, '', newHash);
+    }
+  }
+
   window.scrollTo(0, 0);
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
-  
+
   setTimeout(() => {
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   }, 100);
 }
+
+function routeFromHash() {
+  const view = location.hash.replace(/^#/, '') || 'home';
+  navigateTo(view, false);
+}
+
+window.addEventListener('popstate', routeFromHash);
+window.addEventListener('DOMContentLoaded', routeFromHash);
 
 function toggleMobileMenu() {
   const menu = document.getElementById('mobileMenu');
@@ -1651,12 +1881,13 @@ function handleGlobalSearch(query) {
     resultsContainer.style.display = 'none';
     return;
   }
+  const q = query.toLowerCase();
   const results = searchData.filter(item =>
-    item.title.toLowerCase().includes(query.toLowerCase())
-  );
+    item.title.toLowerCase().includes(q) || (item.keywords || []).some(k => k.toLowerCase().includes(q))
+  ).slice(0, 8);
   if (results.length > 0) {
     resultsContainer.innerHTML = results.map((item, index) => `
-      <div class="search-suggestion-item" onclick="handleSearchResult(${index})">
+      <div class="search-suggestion-item" onclick="handleSearchResult(${searchData.indexOf(item)})">
         <span class="search-suggestion-title">${item.title}</span>
         <span class="search-suggestion-type">${item.type}</span>
       </div>
@@ -1669,11 +1900,8 @@ function handleGlobalSearch(query) {
 }
 
 function handleSearchResult(index) {
-  const results = searchData.filter(item =>
-    item.title.toLowerCase().includes(document.getElementById('globalSearch').value.toLowerCase())
-  );
-  if (results[index]) {
-    results[index].action();
+  if (searchData[index]) {
+    searchData[index].action();
     closeSearch();
   }
 }
@@ -1730,8 +1958,68 @@ function rejectCookies() {
   document.getElementById('cookieBanner').classList.remove('active');
 }
 
+let _redirectTimer = null;
+let _redirectUrl = null;
+
+function externalRedirect(url, siteName) {
+  _redirectUrl = url;
+  document.getElementById('redirectSiteName').textContent = siteName;
+  const bar = document.getElementById('redirectBar');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  const backdrop = document.getElementById('redirectBackdrop');
+  backdrop.classList.add('active');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      bar.style.transition = 'width 2s linear';
+      bar.style.width = '100%';
+    });
+  });
+  _redirectTimer = setTimeout(() => {
+    backdrop.classList.remove('active');
+    window.open(url, '_blank');
+    _redirectUrl = null;
+  }, 2000);
+}
+
+function cancelRedirect() {
+  clearTimeout(_redirectTimer);
+  _redirectUrl = null;
+  document.getElementById('redirectBackdrop').classList.remove('active');
+}
+
+// Intercept all target="_blank" anchor clicks automatically
+document.addEventListener('click', function(e) {
+  const a = e.target.closest('a[target="_blank"]');
+  if (!a) return;
+  const href = a.getAttribute('href');
+  if (!href || href.startsWith('mailto:')) return;
+  e.preventDefault();
+  try {
+    const host = new URL(href).hostname.replace(/^www\./, '');
+    externalRedirect(href, host);
+  } catch(_) {
+    window.open(href, '_blank');
+  }
+});
+
 function openCookieSettings() {
-  alert('Cookie settings panel would open here, allowing users to choose which categories of cookies to accept.');
+  const consent = localStorage.getItem('weaverCookiePrefs');
+  const prefs = consent ? JSON.parse(consent) : { analytics: false };
+  document.getElementById('cookiePrefAnalytics').checked = !!prefs.analytics;
+  document.getElementById('cookieModalBackdrop').classList.add('active');
+}
+
+function closeCookieSettings() {
+  document.getElementById('cookieModalBackdrop').classList.remove('active');
+}
+
+function saveCookiePreferences() {
+  const analytics = document.getElementById('cookiePrefAnalytics').checked;
+  localStorage.setItem('weaverCookiePrefs', JSON.stringify({ analytics }));
+  localStorage.setItem('weaverCookieConsent', 'custom');
+  document.getElementById('cookieModalBackdrop').classList.remove('active');
+  document.getElementById('cookieBanner').classList.remove('active');
 }
 
 // Scroll progress bar, back-to-top button, and hero parallax
